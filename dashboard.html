@@ -8,6 +8,7 @@
 </head>
 <body>
   <header>
+    <button id="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
     <h1>Tour & Travel Dashboard</h1>
     <nav>
       <a href="#">Home</a>
@@ -18,8 +19,8 @@
     </nav>
   </header>
 
-  <div class="container">
-    <aside>
+    <!-- Sidebar (drawer) -->
+    <div id="sidebar" class="sidebar">
       <ul>
         <li><a href="#">Dashboard</a></li>
         <li><a href="#">My Bookings</a></li>
@@ -28,8 +29,23 @@
         <li><a href="#">Travel Deals</a></li>
         <li><a href="#">Settings</a></li>
       </ul>
-    </aside>
-
+    </div>
+    
+    <div class="container">
+      <main>
+        <h2>Welcome, [User Name]!</h2>
+        <section class="card">
+          <h3>Next Trip</h3>
+          <p>Bali – August 25 to August 30</p>
+        </section>
+    
+        <section class="card">
+          <h3>Top Travel Deals</h3>
+          <p>🔥 20% Off Italy Summer Tours!</p>
+        </section>
+      </main>
+    </div>
+    
     <main>
       <h2>Welcome, [User Name]!</h2>
       <section class="card">
@@ -43,5 +59,14 @@
       </section>
     </main>
   </div>
-</body>
+  <script>
+    const toggleBtn = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+  
+    toggleBtn.addEventListener('click', () => {
+      sidebar.classList.toggle('active');
+    });
+  </script>
+  
+  </body>
 </html>
