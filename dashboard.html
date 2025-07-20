@@ -32,7 +32,7 @@
   </div>
 
   <!-- Main Content -->
-  <div class="container">
+  <div class="container" id="main-content">
     <main>
       <h2>Welcome, [User Name]!</h2>
       <section class="card">
@@ -47,14 +47,22 @@
     </main>
   </div>
 
+  <!-- JavaScript -->
   <script>
     const toggleBtn = document.getElementById('menu-toggle');
     const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('main-content');
 
     toggleBtn.addEventListener('click', () => {
       sidebar.classList.toggle('active');
+      mainContent.classList.toggle('blurred');
+    });
+
+    // Optional: close sidebar when clicking inside sidebar links
+    sidebar.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      mainContent.classList.remove('blurred');
     });
   </script>
 </body>
 </html>
-
