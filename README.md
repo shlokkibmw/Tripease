@@ -1,1 +1,1 @@
-# Tripease aka (kungfu AI)
+# Tripease aka (Kuenfu AI)
