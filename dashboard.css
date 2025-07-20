@@ -1,4 +1,4 @@
-/* Base Reset */
+/* General Reset */
 * {
   margin: 0;
   padding: 0;
@@ -10,6 +10,7 @@ body {
   background: #f4f6f8;
 }
 
+/* Header */
 header {
   background-color: #003366;
   color: white;
@@ -34,22 +35,18 @@ nav a {
   cursor: pointer;
 }
 
-.container {
-  display: flex;
-}
-
-/* Sidebar styles */
+/* Sidebar slides over content */
 .sidebar {
   width: 250px;
   background-color: #1c2b36;
   color: white;
-  height: 100vh;
+  height: 100%;
   padding: 1rem;
   position: fixed;
-  top: 70px; /* height of header */
-  left: -250px; /* hidden by default */
+  top: 70px; /* below header */
+  left: -250px;
   transition: left 0.3s ease;
-  z-index: 1000;
+  z-index: 1001;
 }
 
 .sidebar.active {
@@ -58,7 +55,6 @@ nav a {
 
 .sidebar ul {
   list-style: none;
-  padding: 0;
 }
 
 .sidebar ul li a {
@@ -73,18 +69,19 @@ nav a {
   background-color: #294052;
 }
 
-/* Adjust content when sidebar is visible */
-.container main {
-  margin-left: 0;
+/* Main content */
+.container {
   padding: 2rem;
-  flex: 1;
-  transition: margin-left 0.3s ease;
+  transition: filter 0.3s ease;
 }
 
-.sidebar.active ~ .container main {
-  margin-left: 250px;
+/* Blur effect when sidebar is open */
+.container.blurred {
+  filter: blur(3px);
+  pointer-events: none; /* optional: prevent clicks */
 }
 
+/* Cards */
 .card {
   background: white;
   padding: 1rem;
