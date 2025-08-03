@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Home | Travel Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4a6fa5;
+      --secondary: #166088;
+      --accent: #4fc3f7;
+      --light: #f8f9fa;
+      --dark: #343a40;
+      --success: #28a745;
+      --warning: #ffc107;
+      --danger: #dc3545;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f5f5f5;
+      color: #333;
+    }
+    
+    header {
+      background-color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    
+    #menu-toggle {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      padding: 5px 10px;
+    }
+    
+    header h1 {
+      margin: 0;
+      font-size: 20px;
+      color: var(--secondary);
+    }
+    
+    nav a {
+      color: var(--secondary);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      width: 250px;
+      background-color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100vh;
+      box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 99;
+      padding-top: 60px;
+    }
+    
+    .sidebar.show {
+      transform: translateX(0);
+    }
+    
+    .sidebar-header {
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #eee;
+    }
+    
+    .sidebar-header img {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+    
+    .sidebar-header h3 {
+      margin: 5px 0;
+    }
+    
+    .sidebar-header p {
+      margin: 0;
+      color: var(--warning);
+      font-size: 14px;
+    }
+    
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .sidebar li a {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: #555;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    
+    .sidebar li a:hover, .sidebar li a.active {
+      background-color: rgba(74, 111, 165, 0.1);
+      color: var(--primary);
+    }
+    
+    .sidebar li a i {
+      margin-right: 10px;
+      width: 20px;
+      text-align: center;
+    }
+    
+    /* Main Content */
+    .container {
+      padding: 20px;
+      margin-top: 60px;
+    }
+    
+    /* Cards */
+    .card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    
+    .card h3 {
+      margin-top: 0;
+      color: var(--secondary);
+    }
+    
+    /* Trip Details */
+    .trip-details {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    
+    .trip-details img {
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    
+    .status {
+      padding: 5px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      display: inline-block;
+    }
+    
+    .status.confirmed {
+      background-color: #e8f5e9;
+      color: var(--success);
+    }
+    
+    /* Deals */
+    .deals-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    .deal {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+    }
+    
+    .deal img {
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+    
+    .discount {
+      color: var(--danger);
+      font-weight: bold;
+    }
+    
+    /* Buttons */
+    .btn {
+      padding: 8px 16px;
+      border-radius: 5px;
+      border: none;
+      background-color: var(--primary);
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .btn:hover {
+      opacity: 0.9;
+    }
+    
+    @media (max-width: 768px) {
+      .trip-details {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <button id="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
+    <h1>Tour & Travel Dashboard</h1>
+    <nav>
+      <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+    </nav>
+  </header>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Profile" class="profile-img">
+      <h3>John Doe</h3>
+      <p>Gold Member</p>
+    </div>
+    <ul>
+      <li><a href="home.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+      <li><a href="mytrip.html"><i class="fas fa-suitcase"></i> My Trips</a></li>
+      <li><a href="#"><i class="fas fa-receipt"></i> Transactions</a></li>
+      <li><a href="#"><i class="fas fa-question-circle"></i> Help</a></li>
+      <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container" id="main-content">
+    <main id="home-section">
+      <h2>Welcome, John!</h2>
+      
+      <section class="card">
+        <h3>Next Trip</h3>
+        <div class="trip-details">
+          <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Bali">
+          <div>
+            <p><strong>Bali, Indonesia</strong></p>
+            <p>August 25 - August 30, 2023</p>
+            <p class="status confirmed">Confirmed</p>
+            <button class="btn view-details"><i class="fas fa-eye"></i> View Details</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="card">
+        <h3>Top Travel Deals</h3>
+        <div class="deals-container">
+          <div class="deal">
+            <img src="https://images.unsplash.com/photo-1495567720989-cebdbdd97913?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Italy">
+            <div>
+              <p><strong>Italy Summer Tours</strong></p>
+              <p class="discount">🔥 20% OFF</p>
+              <p>Limited time offer</p>
+            </div>
+          </div>
+          <div class="deal">
+            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Japan">
+            <div>
+              <p><strong>Japan Cherry Blossom</strong></p>
+              <p class="discount">🔥 15% OFF</p>
+              <p>Early bird special</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    // Toggle sidebar
+    document.getElementById('menu-toggle').addEventListener('click', function() {
+      document.getElementById('sidebar').classList.toggle('show');
+    });
+  </script>
+</body>
+</html>
