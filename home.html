@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Home | Travel Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet">
   <style>
     :root {
       --primary: #4a6fa5;
@@ -23,6 +24,9 @@
       padding: 0;
       background-color: #f5f5f5;
       color: #333;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
     }
     
     header {
@@ -32,9 +36,8 @@
       justify-content: space-between;
       align-items: center;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
       z-index: 100;
+      flex-shrink: 0;
     }
     
     #menu-toggle {
@@ -129,9 +132,23 @@
     }
     
     /* Main Content */
+    .main-content {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+    
+    .content-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    
     .container {
       padding: 20px;
-      margin-top: 60px;
+      overflow-y: auto;
+      flex: 1;
     }
     
     /* Cards */
@@ -224,6 +241,132 @@
         align-items: flex-start;
       }
     }
+
+    /* Map Styles */
+    .map-container {
+      position: relative;
+      height: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    #map {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .map-overlay {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      z-index: 1;
+    }
+    
+    .map-overlay h4 {
+      margin: 0 0 5px 0;
+      color: var(--secondary);
+    }
+    
+    .map-overlay p {
+      margin: 0;
+      font-size: 12px;
+      color: #666;
+    }
+
+    /* Chatbot Styles */
+    .chatbot-container {
+      width: 25%;
+      background: white;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      border-left: 1px solid #ddd;
+    }
+    
+    .chatbot-header {
+      font-weight: bold;
+      font-size: 18px;
+      padding: 15px;
+      border-bottom: 1px solid #ccc;
+      background-color: var(--primary);
+      color: white;
+    }
+    
+    .chat-messages {
+      flex-grow: 1;
+      overflow-y: auto;
+      padding: 15px;
+      background: #f9f9f9;
+    }
+    
+    .chat-message {
+      margin-bottom: 10px;
+      padding: 8px 12px;
+      border-radius: 15px;
+      max-width: 80%;
+    }
+    
+    .chat-message.user {
+      background-color: var(--primary);
+      color: white;
+      margin-left: auto;
+    }
+    
+    .chat-message.bot {
+      background-color: #e9ecef;
+      color: #333;
+    }
+    
+    .chat-form {
+      display: flex;
+      padding: 15px;
+      border-top: 1px solid #ddd;
+    }
+    
+    .chat-input {
+      flex-grow: 1;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 20px;
+      outline: none;
+    }
+    
+    .chat-send {
+      padding: 10px 15px;
+      margin-left: 10px;
+      border: none;
+      background-color: var(--primary);
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+    
+    .chat-send:hover {
+      opacity: 0.9;
+    }
+
+    /* Full screen layout */
+    .full-screen-section {
+      height: calc(100vh - 60px);
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .section-header {
+      padding: 15px;
+      background-color: white;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    .section-content {
+      flex: 1;
+      padding: 0;
+    }
   </style>
 </head>
 <body>
@@ -253,51 +396,131 @@
   </div>
 
   <!-- Main Content -->
-  <div class="container" id="main-content">
-    <main id="home-section">
-      <h2>Welcome, John!</h2>
-      
-      <section class="card">
-        <h3>Next Trip</h3>
-        <div class="trip-details">
-          <img src="https://images.unsplash.com/photo-1537996194471-e657df975ab4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Bali">
-          <div>
-            <p><strong>Bali, Indonesia</strong></p>
-            <p>August 25 - August 30, 2023</p>
-            <p class="status confirmed">Confirmed</p>
-            <button class="btn view-details"><i class="fas fa-eye"></i> View Details</button>
-          </div>
+  <div class="main-content">
+    <div class="content-area">
+      <div class="full-screen-section">
+        <div class="section-header">
+          <h2>Travel Map & Chatbot</h2>
+          <p>Explore destinations and chat with our assistant</p>
         </div>
-      </section>
-
-      <section class="card">
-        <h3>Top Travel Deals</h3>
-        <div class="deals-container">
-          <div class="deal">
-            <img src="https://images.unsplash.com/photo-1495567720989-cebdbdd97913?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Italy">
-            <div>
-              <p><strong>Italy Summer Tours</strong></p>
-              <p class="discount">🔥 20% OFF</p>
-              <p>Limited time offer</p>
+        <div class="section-content">
+          <div class="main-content" style="height: 100%;">
+            <div class="content-area" style="width: 75%;">
+              <div class="map-container" style="height: 100%;">
+                <div id="map"></div>
+                <div class="map-overlay">
+                  <h4>Explore Destinations</h4>
+                  <p>Click on markers to view details</p>
+                </div>
+              </div>
+            </div>
+            <div class="chatbot-container">
+              <div class="chatbot-header">
+                <i class="fas fa-comments"></i> Travel Assistant
+              </div>
+              <div class="chat-messages" id="chat-messages">
+                <div class="chat-message bot">
+                  <strong>Assistant:</strong> Hello! I'm here to help you plan your perfect trip. Ask me about destinations, deals, or travel tips!
+                </div>
+              </div>
+              <form class="chat-form" id="chat-form">
+                <input type="text" class="chat-input" id="chat-input" placeholder="Ask about travel destinations..." />
+                <button type="submit" class="chat-send">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+              </form>
             </div>
           </div>
-          <div class="deal">
-            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Japan">
-            <div>
-              <p><strong>Japan Cherry Blossom</strong></p>
-              <p class="discount">🔥 15% OFF</p>
-              <p>Early bird special</p>
-            </div>
-          </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </div>
   </div>
 
+  <script>
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+
+    chatForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const message = chatInput.value.trim();
+      if (message === '') return;
+
+      // Append user message
+      const userMessage = document.createElement('p');
+      userMessage.textContent = 'You: ' + message;
+      userMessage.style.fontWeight = 'bold';
+      chatMessages.appendChild(userMessage);
+
+      // Clear input
+      chatInput.value = '';
+
+      // Simulate bot response
+      const botMessage = document.createElement('p');
+      botMessage.textContent = 'Bot: Sorry, I am just a demo chatbot.';
+      chatMessages.appendChild(botMessage);
+
+      // Scroll to bottom
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    });
+  </script>
+
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
   <script>
     // Toggle sidebar
     document.getElementById('menu-toggle').addEventListener('click', function() {
       document.getElementById('sidebar').classList.toggle('show');
+    });
+
+    // Mapbox Configuration
+    // Replace 'YOUR_MAPBOX_ACCESS_TOKEN' with your actual Mapbox access token
+    mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
+
+    // Initialize the map
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11',
+      center: [115.1889, -8.4095], // Bali coordinates
+      zoom: 10
+    });
+
+    // Add navigation controls
+    map.addControl(new mapboxgl.NavigationControl());
+
+    // Sample destinations for demonstration
+    const destinations = [
+      {
+        name: 'Bali, Indonesia',
+        coordinates: [115.1889, -8.4095],
+        description: 'Your next trip destination'
+      },
+      {
+        name: 'Rome, Italy',
+        coordinates: [12.4964, 41.9028],
+        description: 'Italy Summer Tours available'
+      },
+      {
+        name: 'Tokyo, Japan',
+        coordinates: [139.6917, 35.6895],
+        description: 'Cherry Blossom season special'
+      }
+    ];
+
+    // Add markers after map loads
+    map.on('load', function() {
+      destinations.forEach(destination => {
+        // Create marker
+        const marker = new mapboxgl.Marker({ color: '#4a6fa5' })
+          .setLngLat(destination.coordinates)
+          .setPopup(
+            new mapboxgl.Popup({ offset: 25 })
+              .setHTML(`
+                <h4>${destination.name}</h4>
+                <p>${destination.description}</p>
+              `)
+          )
+          .addTo(map);
+      });
     });
   </script>
 </body>
