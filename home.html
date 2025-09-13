@@ -367,6 +367,94 @@
       flex: 1;
       padding: 0;
     }
+
+    /* Map Controls */
+    .map-controls {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 2;
+    }
+    
+    .map-control-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 4px;
+      background: white;
+      border: none;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .map-control-btn:hover {
+      background: #f5f5f5;
+    }
+    
+    /* Map Legend */
+    .map-legend {
+      position: absolute;
+      bottom: 20px;
+      left: 10px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 10px;
+      border-radius: 5px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+      z-index: 2;
+    }
+    
+    .map-legend h4 {
+      margin: 0 0 8px 0;
+      font-size: 14px;
+    }
+    
+    .legend-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+    
+    .legend-color {
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      margin-right: 8px;
+    }
+    
+    .legend-label {
+      font-size: 12px;
+    }
+    
+    /* Loading spinner */
+    .map-loading {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      text-align: center;
+      color: var(--primary);
+    }
+    
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      border-left: 4px solid var(--primary);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 15px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -389,9 +477,9 @@
       <li><a href="home.html" class="active"><i class="fas fa-home"></i> Home</a></li>
       <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
       <li><a href="mytrip.html"><i class="fas fa-suitcase"></i> My Trips</a></li>
-      <li><a href="#"><i class="fas fa-receipt"></i> Transactions</a></li>
-      <li><a href="#"><i class="fas fa-question-circle"></i> Help</a></li>
-      <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+      <li><a href="transaction.html"><i class="fas fa-receipt"></i> Transactions</a></li>
+      <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>
+      <li><a href="setting.html"><i class="fas fa-cog"></i> Settings</a></li>
     </ul>
   </div>
 
@@ -407,10 +495,48 @@
           <div class="main-content" style="height: 100%;">
             <div class="content-area" style="width: 75%;">
               <div class="map-container" style="height: 100%;">
-                <div id="map"></div>
+                <div id="map">
+                  <div class="map-loading">
+                    <div class="spinner"></div>
+                    <p>Loading map...</p>
+                  </div>
+                </div>
                 <div class="map-overlay">
                   <h4>Explore Destinations</h4>
                   <p>Click on markers to view details</p>
+                </div>
+                
+                <!-- Map Controls -->
+                <div class="map-controls">
+                  <button class="map-control-btn" id="zoom-in" title="Zoom In">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                  <button class="map-control-btn" id="zoom-out" title="Zoom Out">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button class="map-control-btn" id="locate-me" title="Locate Me">
+                    <i class="fas fa-location-arrow"></i>
+                  </button>
+                  <button class="map-control-btn" id="reset-view" title="Reset View">
+                    <i class="fas fa-globe"></i>
+                  </button>
+                </div>
+                
+                <!-- Map Legend -->
+                <div class="map-legend">
+                  <h4>Destinations</h4>
+                  <div class="legend-item">
+                    <div class="legend-color" style="background-color: #4a6fa5;"></div>
+                    <span class="legend-label">Visited Places</span>
+                  </div>
+                  <div class="legend-item">
+                    <div class="legend-color" style="background-color: #28a745;"></div>
+                    <span class="legend-label">Upcoming Trips</span>
+                  </div>
+                  <div class="legend-item">
+                    <div class="legend-color" style="background-color: #ffc107;"></div>
+                    <span class="legend-label">Recommended</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -472,55 +598,210 @@
       document.getElementById('sidebar').classList.toggle('show');
     });
 
-    // Mapbox Configuration
-    // Replace 'YOUR_MAPBOX_ACCESS_TOKEN' with your actual Mapbox access token
-    mapboxgl.accessToken = 'YOUR_MAPBOX_ACCESS_TOKEN';
-
+    // Mapbox Configuration with your token
+    mapboxgl.accessToken = 'pk.eyJ1Ijoic2hsb2swMDciLCJhIjoiY21mZnB0aTRuMGRqejJrcXlmcXlzNHVubSJ9.HOIwzO960bfra-ZlDvQN9Q';
+    
     // Initialize the map
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
-      center: [115.1889, -8.4095], // Bali coordinates
-      zoom: 10
+      center: [0, 20], // Default center [longitude, latitude]
+      zoom: 1.5,
+      minZoom: 1,
+      maxZoom: 17
     });
 
-    // Add navigation controls
-    map.addControl(new mapboxgl.NavigationControl());
-
-    // Sample destinations for demonstration
-    const destinations = [
-      {
-        name: 'Bali, Indonesia',
-        coordinates: [115.1889, -8.4095],
-        description: 'Your next trip destination'
-      },
-      {
-        name: 'Rome, Italy',
-        coordinates: [12.4964, 41.9028],
-        description: 'Italy Summer Tours available'
-      },
-      {
-        name: 'Tokyo, Japan',
-        coordinates: [139.6917, 35.6895],
-        description: 'Cherry Blossom season special'
-      }
-    ];
-
-    // Add markers after map loads
+    // Remove loading spinner when map loads
     map.on('load', function() {
+      document.querySelector('.map-loading').style.display = 'none';
+      
+      // Add navigation controls
+      map.addControl(new mapboxgl.NavigationControl());
+
+      // Add geolocate control
+      map.addControl(new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true
+        },
+        trackUserLocation: true,
+        showUserLocation: true,
+        showAccuracyCircle: false
+      }));
+
+      // Sample destinations for demonstration
+      const destinations = [
+        {
+          name: 'Bali, Indonesia',
+          coordinates: [115.1889, -8.4095],
+          description: 'Your next trip destination',
+          type: 'upcoming',
+          date: 'Dec 20 - Dec 30, 2023',
+          image: 'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80'
+        },
+        {
+          name: 'Rome, Italy',
+          coordinates: [12.4964, 41.9028],
+          description: 'Italy Summer Tours available',
+          type: 'visited',
+          date: 'May 15 - May 22, 2022',
+          image: 'https://images.unsplash.com/photo-1552832230-c0197045d904?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80'
+        },
+        {
+          name: 'Tokyo, Japan',
+          coordinates: [139.6917, 35.6895],
+          description: 'Cherry Blossom season special',
+          type: 'recommended',
+          date: 'Apr 5 - Apr 10, 2023',
+          image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80'
+        },
+        {
+          name: 'Paris, France',
+          coordinates: [2.3522, 48.8566],
+          description: 'Family reunion trip',
+          type: 'visited',
+          date: 'Aug 10 - Aug 20, 2022',
+          image: 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80'
+        },
+        {
+          name: 'Swiss Alps, Switzerland',
+          coordinates: [8.2275, 46.8182],
+          description: 'Winter getaway destination',
+          type: 'upcoming',
+          date: 'Dec 20 - Dec 30, 2023',
+          image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80'
+        },
+        {
+          name: 'New York, USA',
+          coordinates: [-74.0060, 40.7128],
+          description: 'Business conference trip',
+          type: 'visited',
+          date: 'Mar 10 - Mar 15, 2023',
+          image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80'
+        },
+        {
+          name: 'Santorini, Greece',
+          coordinates: [25.4615, 36.3932],
+          description: 'Honeymoon destination',
+          type: 'recommended',
+          date: 'Jun 5 - Jun 15, 2024',
+          image: 'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80'
+        }
+      ];
+
+      // Function to get color based on destination type
+      function getColorByType(type) {
+        switch(type) {
+          case 'visited': return '#4a6fa5';
+          case 'upcoming': return '#28a745';
+          case 'recommended': return '#ffc107';
+          default: return '#4a6fa5';
+        }
+      }
+
+      // Function to get icon based on destination type
+      function getIconByType(type) {
+        switch(type) {
+          case 'visited': return 'fa-check-circle';
+          case 'upcoming': return 'fa-calendar-check';
+          case 'recommended': return 'fa-star';
+          default: return 'fa-map-marker-alt';
+        }
+      }
+
+      // Add markers for each destination
       destinations.forEach(destination => {
+        // Create a DOM element for the marker
+        const el = document.createElement('div');
+        el.className = 'marker';
+        el.innerHTML = `<i class="fas ${getIconByType(destination.type)}" style="font-size: 20px; color: ${getColorByType(destination.type)}"></i>`;
+        el.style.cursor = 'pointer';
+        el.style.textShadow = '0 0 3px white';
+
         // Create marker
-        const marker = new mapboxgl.Marker({ color: '#4a6fa5' })
+        const marker = new mapboxgl.Marker(el)
           .setLngLat(destination.coordinates)
           .setPopup(
             new mapboxgl.Popup({ offset: 25 })
               .setHTML(`
-                <h4>${destination.name}</h4>
-                <p>${destination.description}</p>
+                <div style="min-width: 250px;">
+                  <div style="height: 150px; overflow: hidden; border-radius: 8px 8px 0 0; margin: -15px -15px 15px -15px;">
+                    <img src="${destination.image}" alt="${destination.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                  </div>
+                  <h4 style="margin: 0 0 8px 0; color: #333;">${destination.name}</h4>
+                  <p style="margin: 0 0 8px 0; color: #666;">${destination.description}</p>
+                  <p style="margin: 0; font-size: 12px; color: #999;">
+                    <i class="fas fa-calendar-alt"></i> ${destination.date}
+                  </p>
+                  <div style="margin-top: 15px; display: flex; gap: 10px;">
+                    <button style="padding: 8px 12px; background: #4a6fa5; color: white; border: none; border-radius: 4px; cursor: pointer; flex: 1;">
+                      <i class="fas fa-info-circle"></i> Details
+                    </button>
+                    <button style="padding: 8px 12px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer; flex: 1;">
+                      <i class="fas fa-map"></i> Explore
+                    </button>
+                  </div>
+                </div>
               `)
           )
           .addTo(map);
       });
+
+      // Fly to a destination when its marker is clicked
+      map.on('click', (e) => {
+        const features = map.queryRenderedFeatures(e.point, {
+          layers: ['markers']
+        });
+        
+        if (!features.length) return;
+        
+        const feature = features[0];
+        const coordinates = feature.geometry.coordinates.slice();
+        
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+        
+        map.flyTo({
+          center: coordinates,
+          zoom: 10,
+          essential: true
+        });
+      });
+    });
+
+    // Custom map controls
+    document.getElementById('zoom-in').addEventListener('click', () => {
+      map.zoomIn();
+    });
+
+    document.getElementById('zoom-out').addEventListener('click', () => {
+      map.zoomOut();
+    });
+
+    document.getElementById('reset-view').addEventListener('click', () => {
+      map.flyTo({
+        center: [0, 20],
+        zoom: 1.5,
+        essential: true
+      });
+    });
+
+    document.getElementById('locate-me').addEventListener('click', () => {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          map.flyTo({
+            center: [position.coords.longitude, position.coords.latitude],
+            zoom: 10,
+            essential: true
+          });
+        },
+        (error) => {
+          alert('Unable to get your location. Please check your browser settings.');
+        }
+      );
     });
   </script>
 </body>
