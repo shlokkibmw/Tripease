@@ -323,7 +323,7 @@
   <div id="sidebar-placeholder"></div>
   <script>
     (async function(){
-  const fallback = `<div id="sidebar" class="sidebar" aria-hidden="true">\n  <div class="sidebar-header">\n    <img src="monasterypic.jfif" alt="User Profile" class="profile-img">\n    <h3>Sujay Shetty</h3>\n    <p>Gold Member</p>\n  </div>\n  <ul>\n    <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>\n    <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>\n    <li><a href="mytrip.html"><i class="fas fa-suitcase"></i> My Trips</a></li>\n    <li><a href="heritage.html"><i class="fas fa-landmark"></i> Heritage Cloud</a></li>\n    <li><a href="transaction.html"><i class="fas fa-receipt"></i> Transactions</a></li>\n    <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>\n    <li><a href="setting.html"><i class="fas fa-cog"></i> Settings</a></li>\n  </ul>\n</div>`;
+  const fallback = `<div id="sidebar" class="sidebar" aria-hidden="true">\n  <div class="sidebar-header">\n    <img src="harsh.jpg" alt="User Profile" class="profile-img">\n    <h3>Sujay Shetty</h3>\n    <p>Gold Member</p>\n  </div>\n  <ul>\n    <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>\n    <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>\n    <li><a href="mytrip.html"><i class="fas fa-suitcase"></i> My Trips</a></li>\n    <li><a href="heritage.html"><i class="fas fa-landmark"></i> Heritage Cloud</a></li>\n    <li><a href="transaction.html"><i class="fas fa-receipt"></i> Transactions</a></li>\n    <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>\n    <li><a href="setting.html"><i class="fas fa-cog"></i> Settings</a></li>\n  </ul>\n</div>`;
       try{
         const res = await fetch('sidebar.html');
         if(!res.ok) throw new Error('Network response was not ok');
@@ -453,6 +453,36 @@
     document.getElementById('menu-toggle').addEventListener('click', function() {
       document.getElementById('sidebar').classList.toggle('show');
     });
+  </script>
+    <!-- Existing scripts... -->
+
+  <script>
+    // Load profile data into sidebar on page load
+    (function() {
+      function loadProfileToSidebar() {
+        try {
+          const profile = JSON.parse(localStorage.getItem('tripease_profile') || '{}');
+          const sidebarProfileImg = document.getElementById('sidebar-profile-img');
+          const sidebarUserName = document.getElementById('sidebar-user-name');
+          const sidebarMemberStatus = document.getElementById('sidebar-member-status');
+          
+          if (sidebarUserName && profile.name) {
+            sidebarUserName.textContent = profile.name;
+          }
+          if (sidebarMemberStatus && profile.status) {
+            sidebarMemberStatus.textContent = profile.status;
+          }
+          if (sidebarProfileImg && profile.photo) {
+            sidebarProfileImg.src = profile.photo;
+          }
+        } catch(e) {
+          console.error('Error loading profile to sidebar:', e);
+        }
+      }
+      
+      // Load profile when page loads
+      document.addEventListener('DOMContentLoaded', loadProfileToSidebar);
+    })();
   </script>
 </body>
 </html>
