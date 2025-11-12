@@ -368,8 +368,7 @@
   <div id="sidebar" class="sidebar" aria-hidden="true">
     <div class="sidebar-header">
       <img src="harsh.jpg" alt="User Profile" class="profile-img" id="sidebar-profile-img">
-      <h3 id="sidebar-user-name">Sujay Shetty</h3>
-      <p id="sidebar-member-status">Gold Member</p>
+      <h3 id="sidebar-user-name">Harsh Pandey</h3>
     </div>
     <ul>
       <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
@@ -471,14 +470,14 @@
           <div class="activity-item">
             <i class="fas fa-hotel activity-icon"></i>
             <div>
-              <p><strong>Hotel reservation confirmed</strong></p>
+              <p><strong>Completed Feedback</strong></p>
               <p class="activity-date">July 10, 2023</p>
             </div>
           </div>
           <div class="activity-item">
             <i class="fas fa-trophy activity-icon"></i>
             <div>
-              <p><strong>Upgraded to Gold Member</strong></p>
+              <p><strong>Used AI- Iternary</strong></p>
               <p class="activity-date">June 1, 2023</p>
             </div>
           </div>
@@ -583,10 +582,10 @@
       // Function to update sidebar with profile data
       function updateSidebar(p) {
         if (sidebarUserName) {
-          sidebarUserName.textContent = p.name || 'Sujay Shetty';
+          sidebarUserName.textContent = p.name || 'Harsh Pandey';
         }
         if (sidebarMemberStatus) {
-          sidebarMemberStatus.textContent = p.status || 'Gold Member';
+          sidebarMemberStatus.textContent = p.status || 'Beta tester and registered user';
         }
         if (sidebarProfileImg && p.photo) {
           sidebarProfileImg.src = p.photo;
@@ -595,13 +594,11 @@
 
       function loadProfile(){
         const p = getProfile();
-        document.getElementById('nameInput').value = p.name || 'Sujay Shetty';
-        document.getElementById('emailInput').value = p.email || 'sujay@example.com';
+        document.getElementById('nameInput').value = p.name || 'Harsh Pandey';
+        document.getElementById('emailInput').value = p.email || 'harshpandey@example.com';
         document.getElementById('phoneInput').value = p.phone || '+91 9876543210';
         document.getElementById('dobInput').value = p.dob || '1990-01-01';
         document.getElementById('languageInput').value = p.language || 'en';
-        document.getElementById('interestsInput').value = p.interests || 'Beach, Adventure';
-        document.getElementById('statusDisplay').textContent = p.status || 'Gold Member';
         document.getElementById('memberSinceDisplay').textContent = p.memberSince || 'Member since: June 2023';
         if(p.photo){ 
           profilePhoto.src = p.photo; 
@@ -649,7 +646,7 @@
         });
         
         // Keep status/memberSince if present, otherwise set defaults
-        p.status = p.status || 'Gold Member';
+        p.status = p.status || 'Beta tester and registered user';
         p.memberSince = p.memberSince || 'Member since: June 2023';
         setProfile(p);
         
