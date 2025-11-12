@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Sikkim Monastery Login</title>
+  <title>TripEase Login</title>
   <style>
     * {
       margin: 0;
@@ -35,7 +34,7 @@
     
     .image-section {
       flex: 1;
-      background: url('monasterypic.jpg') center/cover no-repeat;
+      background: url('monasterypic.jfif') center/cover no-repeat;
       min-height: 500px;
       position: relative;
     }
@@ -231,8 +230,7 @@
   <div class="container" id="loginContainer">
     <div class="image-section">
       <div class="image-content">
-        <h2>Discover the Peace And Culture of Sikkim</h2>
-        <p>Experience the serenity of Sikkim monasteries</p>
+        <p>Experience the serenity of monasteries</p>
       </div>
     </div>
     
@@ -262,7 +260,7 @@
     <div class="image-section">
       <div class="image-content">
         <h2>Begin Your Journey</h2>
-        <p>Create an account to explore Sikkim's beauty</p>
+        <p>Create an account to explore monasteries using TripEase</p>
       </div>
     </div>
     
@@ -399,18 +397,19 @@
           .then((result) => {
             const user = result.user;
             // Update profile with collected name
-            user.updateProfile({
-              displayName: name
-            }).then(() => {
-              console.log('Profile updated with name:', name);
-              displayMessage(signupMessage, `Account created! Name: ${name}, Phone: ${fullPhone}`, 'success');
-              // Here you could save phone to Firestore or database if set up
-              window.location.href = 'home.html';
-            }).catch((updateError) => {
-              console.error('Error updating profile:', updateError);
-              displayMessage(signupMessage, `Signed up as ${user.displayName}! (Profile update failed)`, 'success');
-              window.location.href = 'home.html';
-            });
+            user.updateProfile({ displayName: name })
+              .then(() => {
+                console.log('Profile updated with name:', name);
+                displayMessage(signupMessage, `Account created! Name: ${name}, Phone: ${fullPhone}`, 'success');
+                // Redirect to dashboard/home after successful signup
+                setTimeout(() => { window.location.href = 'home.html'; }, 700);
+                // Here you could save phone to Firestore or database if set up
+              }).catch((updateError) => {
+                console.error('Error updating profile:', updateError);
+                displayMessage(signupMessage, `Signed up as ${user.displayName}! (Profile update failed)`, 'success');
+                // Still redirect to home even if profile update failed
+                setTimeout(() => { window.location.href = 'home.html'; }, 900);
+              });
           })
           .catch((error) => {
             displayMessage(signupMessage, error.message, 'error');
@@ -418,11 +417,12 @@
       } else {
         // Login view: Standard Google auth
         auth.signInWithPopup(provider)
-          .then((result) => {
-            const user = result.user;
-            displayMessage(loginMessage, `Welcome back, ${user.displayName}!`, 'success');
-            window.location.href = 'home.html';
-          })
+            .then((result) => {
+              const user = result.user;
+              displayMessage(loginMessage, `Welcome back, ${user.displayName}!`, 'success');
+              // Redirect to dashboard/home after successful login
+              setTimeout(() => { window.location.href = 'home.html'; }, 600);
+            })
           .catch((error) => {
             displayMessage(loginMessage, error.message, 'error');
           });
