@@ -230,7 +230,7 @@
   <div id="sidebar-placeholder"></div>
   <script>
     (async function(){
-  const fallback = `<div id="sidebar" class="sidebar" aria-hidden="true">\n  <div class="sidebar-header">\n    <img src=\"monasterypic.jfif\" alt=\"User Profile\" class=\"profile-img\">\n    <h3>Sujay Shetty</h3>\n    <p>Gold Member</p>\n  </div>\n  <ul>\n    <li><a href=\"home.html\"><i class=\"fas fa-home\"></i> Home</a></li>\n    <li><a href=\"profile.html\"><i class=\"fas fa-user\"></i> Profile</a></li>\n    <li><a href=\"mytrip.html\"><i class=\"fas fa-suitcase\"></i> My Trips</a></li>\n    <li><a href=\"heritage.html\"><i class=\"fas fa-landmark\"></i> Heritage Cloud</a></li>\n    <li><a href=\"help.html\"><i class=\"fas fa-question-circle\"></i> Help</a></li>\n    <li><a href=\"setting.html\"><i class=\"fas fa-cog\"></i> Settings</a></li>\n  </ul>\n</div>`;
+  const fallback = `<div id="sidebar" class="sidebar" aria-hidden="true">\n  <div class="sidebar-header">\n    <img src=\"harsh.jpg\" alt=\"User Profile\" class=\"profile-img\">\n    <h3>Sujay Shetty</h3>\n    <p>Gold Member</p>\n  </div>\n  <ul>\n    <li><a href=\"home.html\"><i class=\"fas fa-home\"></i> Home</a></li>\n    <li><a href=\"profile.html\"><i class=\"fas fa-user\"></i> Profile</a></li>\n    <li><a href=\"mytrip.html\"><i class=\"fas fa-suitcase\"></i> My Trips</a></li>\n    <li><a href=\"heritage.html\"><i class=\"fas fa-landmark\"></i> Heritage Cloud</a></li>\n    <li><a href=\"help.html\"><i class=\"fas fa-question-circle\"></i> Help</a></li>\n    <li><a href=\"setting.html\"><i class=\"fas fa-cog\"></i> Settings</a></li>\n  </ul>\n</div>`;
       try{
         const res = await fetch('sidebar.html');
         if(!res.ok) throw new Error('Network response was not ok');
@@ -285,47 +285,47 @@
     // Full monastery data — 77 entries (each: title, image, district, description)
     // Description format: "Founded: ... Location: ...\n\n<paragraph>"
     const monasteryData = [
-      { title: "Rumtek Dharma Chakra Centre", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Rumtek Dharma Chakra Centre", image: "", district: "Gangtok",
         description: "Founded: mid-18th century (original); re-established in the 1960s. Location: Rumtek, near Gangtok, East Sikkim.\n\nHistory & significance: Rumtek is the principal seat in exile of the Gyalwang Karmapa (Karma Kagyu). Re-established to recreate the Tsurphu seat, its large prayer halls, thangka collections and active monastic community make it central to the Karma Kagyu tradition in exile. The monastery combines modern history, ritual continuity and an accessible pilgrimage atmosphere for visitors."
       },
 
-      { title: "Enchey Monastery", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Enchey Monastery", image: "", district: "Gangtok",
         description: "Founded: early 19th century (site older in local tradition). Location: Enchey Hill, Gangtok, East Sikkim.\n\nHistory & significance: Enchey is a historic Nyingma monastery perched above Gangtok. Associated with local tantric traditions and famed for its masked Cham dances, it acts as an accessible spiritual stop for residents and visitors and remains central to the capital's ritual calendar."
       },
 
-      { title: "Pemayangtse Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Pemayangtse Monastery", image: "", district: "Gyalshing",
         description: "Founded: early 18th century (expanded under early Chogyals). Location: Pemayangtse, near Pelling, Gyalshing district, West Sikkim.\n\nHistory & significance: Pemayangtse—'Perfect Sublime Lotus'—is one of Sikkim’s oldest and most prominent Nyingma monasteries. Associated with Lama Lhatsun Chempo and royal patronage, it is valued for its three-storied assembly hall, rich thangka collection and ceremonial role in historic Sikkimese polity, drawing both pilgrims and history-minded visitors."
       },
 
-      { title: "Tashiding Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Tashiding Monastery", image: "", district: "Gyalshing",
         description: "Founded: mid-17th century. Location: Tashiding, Gyalshing district (hill between Rathong and Rangeet rivers), West Sikkim.\n\nHistory & significance: Tashiding is widely regarded as one of Sikkim’s holiest sites. Founded under early royal patronage, its hilltop location at river confluence and festival calendar have made it a major pilgrimage destination. The monastery’s ceremonies and sacred geography embody western Sikkim's spiritual tradition."
       },
 
-      { title: "Dubdi Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Dubdi Monastery", image: "", district: "Gyalshing",
         description: "Founded: early 18th century (c.1701). Location: Dubdi, Yuksom, Gyalshing district, West Sikkim.\n\nHistory & significance: Dubdi is traditionally cited as the first monastery of Sikkim, established soon after Yuksom became the capital. As part of the Yuksom pilgrimage circuit (with Norbugang and Pemayangtse), Dubdi’s compact form and historical association with the early Chogyal installation render it a significant cultural landmark."
       },
 
-      { title: "Sanga Choeling Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Sanga Choeling Monastery", image: "", district: "Gyalshing",
         description: "Founded: late 17th century. Location: Sanga Choeling ridge above Pelling, Gyalshing district.\n\nHistory & significance: Sanga Choeling—'Island of the Guhyamantra teachings'—is among the oldest foundations in the Pelling area. Historically a centre for esoteric Vajrayana practice, it preserves colonial-era sculptures and murals and offers panoramic views that complement its cultural importance."
       },
 
-      { title: "Phodong Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Phodong Monastery", image: "", district: "Mangan",
         description: "Founded: mid-18th century (c.1740). Location: Phodong, North Sikkim.\n\nHistory & significance: Phodong (Phodang) is a major Karma Kagyu monastery with an active monastic community. Known for its murals and lineage rituals, Phodong functions as a teaching centre and forms an important node in northern and central Sikkim’s monastic network."
       },
 
-      { title: "Ralang (Ralong) Monastery", image: "monasterypic.jfif", district: "Namchi",
+      { title: "Ralang (Ralong) Monastery", image: "", district: "Namchi",
         description: "Founded: 18th century (earlier foundations). Location: Ralang / Ravangla area, Namchi district, South Sikkim.\n\nHistory & significance: Ralang Palchen Choling is a prominent Kagyu monastery celebrated for its thangka painting tradition and festival calendar. The site blends older structures with newer complexes and serves as a cultural hub for the southern hills."
       },
 
-      { title: "Kartok (Karthok) Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Kartok (Karthok) Monastery", image: "", district: "Gyalshing",
         description: "Founded: several centuries ago (local tradition). Location: Kartok village, West Sikkim.\n\nHistory & significance: Kartok is a Nyingma monastery valued for its murals and ritual practice. While smaller than major state seats, it is an important centre for regional devotion and quieter forms of pilgrimage."
       },
 
-      { title: "Chawayng Ani Monastery (Ani Gompa)", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Chawayng Ani Monastery (Ani Gompa)", image: "", district: "Gangtok",
         description: "Founded: modern-era expansion (20th century). Location: Eastern Sikkim / Gangtok environs.\n\nHistory & significance: Chawayng Ani refers to nunneries that provide formal monastic education and training to women. These institutions have grown in the 20th century and are vital for preserving female monastic traditions, community outreach and ritual continuity in the region."
       },
 
-      { title: "Lachen Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Lachen Monastery", image: "", district: "Mangan",
         description: "Founded: 19th century (local origins). Location: Lachen, North Sikkim.\n\nHistory & significance: Lachen Monastery serves the upper Lachen valley and nearby high-altitude communities; it supports seasonal festivals and is a base for pilgrims and tourists visiting Gurudongmar Lake and the northern highlands."
       },
 
@@ -891,5 +891,37 @@
       });
     }
   </script>
+    <!-- Your existing monastery data and scripts... -->
+
+  <!-- ADD THIS SCRIPT FOR PROFILE SYNC -->
+  <script>
+    // Load profile data into sidebar on page load
+    (function() {
+      function loadProfileToSidebar() {
+        try {
+          const profile = JSON.parse(localStorage.getItem('tripease_profile') || '{}');
+          const sidebarProfileImg = document.getElementById('sidebar-profile-img');
+          const sidebarUserName = document.getElementById('sidebar-user-name');
+          const sidebarMemberStatus = document.getElementById('sidebar-member-status');
+          
+          if (sidebarUserName && profile.name) {
+            sidebarUserName.textContent = profile.name;
+          }
+          if (sidebarMemberStatus && profile.status) {
+            sidebarMemberStatus.textContent = profile.status;
+          }
+          if (sidebarProfileImg && profile.photo) {
+            sidebarProfileImg.src = profile.photo;
+          }
+        } catch(e) {
+          console.error('Error loading profile to sidebar:', e);
+        }
+      }
+      
+      // Load profile when page loads
+      document.addEventListener('DOMContentLoaded', loadProfileToSidebar);
+    })();
+  </script>
 </body>
 </html>
+
