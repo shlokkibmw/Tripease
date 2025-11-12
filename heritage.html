@@ -270,7 +270,7 @@
       <button class="back-btn" id="back-to-list">Back to Monastery List</button>
       <div class="detail-card" id="detail-card">
         <h2 id="detail-title">Monastery Title</h2>
-        <img id="detail-image" src="monasterypic.jfif" alt="Monastery image">
+        <img id="detail-image" src="14.webp" alt="Monastery image">
         <p id="detail-description">Full monastery description will appear here — Founded, Location and detailed paragraph (center-aligned).</p>
       </div>
     </div>
@@ -285,387 +285,387 @@
     // Full monastery data — 77 entries (each: title, image, district, description)
     // Description format: "Founded: ... Location: ...\n\n<paragraph>"
     const monasteryData = [
-      { title: "Rumtek Dharma Chakra Centre", image: "", district: "Gangtok",
+      { title: "Rumtek Dharma Chakra Centre", image: "2.jpg", district: "Gangtok",
         description: "Founded: mid-18th century (original); re-established in the 1960s. Location: Rumtek, near Gangtok, East Sikkim.\n\nHistory & significance: Rumtek is the principal seat in exile of the Gyalwang Karmapa (Karma Kagyu). Re-established to recreate the Tsurphu seat, its large prayer halls, thangka collections and active monastic community make it central to the Karma Kagyu tradition in exile. The monastery combines modern history, ritual continuity and an accessible pilgrimage atmosphere for visitors."
       },
 
-      { title: "Enchey Monastery", image: "", district: "Gangtok",
+      { title: "Enchey Monastery", image: "3.jpg", district: "Gangtok",
         description: "Founded: early 19th century (site older in local tradition). Location: Enchey Hill, Gangtok, East Sikkim.\n\nHistory & significance: Enchey is a historic Nyingma monastery perched above Gangtok. Associated with local tantric traditions and famed for its masked Cham dances, it acts as an accessible spiritual stop for residents and visitors and remains central to the capital's ritual calendar."
       },
 
-      { title: "Pemayangtse Monastery", image: "", district: "Gyalshing",
+      { title: "Pemayangtse Monastery", image: "4.webp", district: "Gyalshing",
         description: "Founded: early 18th century (expanded under early Chogyals). Location: Pemayangtse, near Pelling, Gyalshing district, West Sikkim.\n\nHistory & significance: Pemayangtse—'Perfect Sublime Lotus'—is one of Sikkim’s oldest and most prominent Nyingma monasteries. Associated with Lama Lhatsun Chempo and royal patronage, it is valued for its three-storied assembly hall, rich thangka collection and ceremonial role in historic Sikkimese polity, drawing both pilgrims and history-minded visitors."
       },
 
-      { title: "Tashiding Monastery", image: "", district: "Gyalshing",
+      { title: "Tashiding Monastery", image: "5.webp", district: "Gyalshing",
         description: "Founded: mid-17th century. Location: Tashiding, Gyalshing district (hill between Rathong and Rangeet rivers), West Sikkim.\n\nHistory & significance: Tashiding is widely regarded as one of Sikkim’s holiest sites. Founded under early royal patronage, its hilltop location at river confluence and festival calendar have made it a major pilgrimage destination. The monastery’s ceremonies and sacred geography embody western Sikkim's spiritual tradition."
       },
 
-      { title: "Dubdi Monastery", image: "", district: "Gyalshing",
+      { title: "Dubdi Monastery", image: "6.webp", district: "Gyalshing",
         description: "Founded: early 18th century (c.1701). Location: Dubdi, Yuksom, Gyalshing district, West Sikkim.\n\nHistory & significance: Dubdi is traditionally cited as the first monastery of Sikkim, established soon after Yuksom became the capital. As part of the Yuksom pilgrimage circuit (with Norbugang and Pemayangtse), Dubdi’s compact form and historical association with the early Chogyal installation render it a significant cultural landmark."
       },
 
-      { title: "Sanga Choeling Monastery", image: "", district: "Gyalshing",
+      { title: "Sanga Choeling Monastery", image: "7.webp", district: "Gyalshing",
         description: "Founded: late 17th century. Location: Sanga Choeling ridge above Pelling, Gyalshing district.\n\nHistory & significance: Sanga Choeling—'Island of the Guhyamantra teachings'—is among the oldest foundations in the Pelling area. Historically a centre for esoteric Vajrayana practice, it preserves colonial-era sculptures and murals and offers panoramic views that complement its cultural importance."
       },
 
-      { title: "Phodong Monastery", image: "", district: "Mangan",
+      { title: "Phodong Monastery", image: "8.webp", district: "Mangan",
         description: "Founded: mid-18th century (c.1740). Location: Phodong, North Sikkim.\n\nHistory & significance: Phodong (Phodang) is a major Karma Kagyu monastery with an active monastic community. Known for its murals and lineage rituals, Phodong functions as a teaching centre and forms an important node in northern and central Sikkim’s monastic network."
       },
 
-      { title: "Ralang (Ralong) Monastery", image: "", district: "Namchi",
+      { title: "Ralang (Ralong) Monastery", image: "9.webp", district: "Namchi",
         description: "Founded: 18th century (earlier foundations). Location: Ralang / Ravangla area, Namchi district, South Sikkim.\n\nHistory & significance: Ralang Palchen Choling is a prominent Kagyu monastery celebrated for its thangka painting tradition and festival calendar. The site blends older structures with newer complexes and serves as a cultural hub for the southern hills."
       },
 
-      { title: "Kartok (Karthok) Monastery", image: "", district: "Gyalshing",
+      { title: "Kartok (Karthok) Monastery", image: "10.jpg", district: "Gyalshing",
         description: "Founded: several centuries ago (local tradition). Location: Kartok village, West Sikkim.\n\nHistory & significance: Kartok is a Nyingma monastery valued for its murals and ritual practice. While smaller than major state seats, it is an important centre for regional devotion and quieter forms of pilgrimage."
       },
 
-      { title: "Chawayng Ani Monastery (Ani Gompa)", image: "", district: "Gangtok",
+      { title: "Chawayng Ani Monastery (Ani Gompa)", image: "11.webp", district: "Gangtok",
         description: "Founded: modern-era expansion (20th century). Location: Eastern Sikkim / Gangtok environs.\n\nHistory & significance: Chawayng Ani refers to nunneries that provide formal monastic education and training to women. These institutions have grown in the 20th century and are vital for preserving female monastic traditions, community outreach and ritual continuity in the region."
       },
 
-      { title: "Lachen Monastery", image: "", district: "Mangan",
+      { title: "Lachen Monastery", image: "12.webp", district: "Mangan",
         description: "Founded: 19th century (local origins). Location: Lachen, North Sikkim.\n\nHistory & significance: Lachen Monastery serves the upper Lachen valley and nearby high-altitude communities; it supports seasonal festivals and is a base for pilgrims and tourists visiting Gurudongmar Lake and the northern highlands."
       },
 
-      { title: "Lachung Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Lachung Monastery", image: "13.webp", district: "Mangan",
         description: "Founded: 19th century (local origins). Location: Lachung, North Sikkim.\n\nHistory & significance: Lachung Monastery is central to the village and valley ritual life, frequently visited by travelers to Yumthang and nearby alpine meadows. Its festivals and cold-climate monastic culture offer a window into northern Himalayan religious practice."
       },
 
-      { title: "Tholung Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Tholung Monastery", image: "14.webp", district: "Mangan",
         description: "Founded: late 18th century. Location: Tholung area, North Sikkim.\n\nHistory & significance: Tholung is renowned for its store of sacred relics and archives, historically acting as a repository of objects and scriptures during times of conflict. Its remoteness and relic collections mark it as an important cultural repository."
       },
 
-      { title: "Lingdum Zurmang Monastery", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Lingdum Zurmang Monastery", image: "15.webp", district: "Gangtok",
         description: "Founded: late 20th century. Location: East Sikkim.\n\nHistory & significance: Lingdum Zurmang, associated with the Zurmang Kagyu lineage, is a contemporary centre for study and practice. It attracts practitioners for retreats and offers insight into modern Kagyu institutional life in Sikkim."
       },
 
-      { title: "Samdong (Mintokgang) Monastery", image: "monasterypic.jfif", district: "Namchi",
+      { title: "Samdong (Mintokgang) Monastery", image: "16.webp", district: "Namchi",
         description: "Founded: early 20th century. Location: Samdong area, Namchi district, South Sikkim.\n\nHistory & significance: Samdong Mintokgang is a community-focused monastery known for its role in local ritual life and education; it complements other southern Sikkim religious sites while supporting district festivals."
       },
 
-      { title: "Samdruptse Monastic Complex", image: "monasterypic.jfif", district: "Namchi",
+      { title: "Samdruptse Monastic Complex", image: "17.webp", district: "Namchi",
         description: "Founded: modern-era development. Location: Samdruptse hill, Namchi district.\n\nHistory & significance: Samdruptse is a recent pilgrimage and cultural complex combining monumental statue installations with monastic chapels. It serves both devotional visitors and tourists, linking contemporary monumentality to local religious practice."
       },
 
-      { title: "Norbugang Chorten / Site", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Norbugang Chorten / Site", image: "18.webp", district: "Gyalshing",
         description: "Founded: early 18th century (consecration site). Location: Norbugang, Yuksom, West Sikkim.\n\nHistory & significance: Norbugang is historically linked to the coronation of Sikkim’s first Chogyal and features chortens and historic markers. It forms part of the Yuksom heritage circuit alongside Dubdi and Pemayangtse."
       },
 
-      { title: "Pemaling Monastery", image: "monasterypic.jfif", district: "Pakyong",
+      { title: "Pemaling Monastery", image: "19.webp", district: "Pakyong",
         description: "Founded: early 20th century. Location: Pakyong district, eastern Sikkim.\n\nHistory & significance: Pemaling and similar district monasteries provide ritual guidance and training to local communities; they often host seasonal festivals and contribute to maintaining liturgical practices in the eastern hills."
       },
 
-      { title: "Rhenock Monastery", image: "monasterypic.jfif", district: "Pakyong",
+      { title: "Rhenock Monastery", image: "20.webp", district: "Pakyong",
         description: "Founded: historic local foundation. Location: Rhenock, Pakyong / East Sikkim.\n\nHistory & significance: Rhenock Monastery is a district center that historically anchors village devotional life, teaching novices and hosting local ceremonies that connect communities across the region."
       },
 
-      { title: "Khecheopalri Monastery (near Khecheopalri Lake)", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Khecheopalri Monastery (near Khecheopalri Lake)", image: "21.webp", district: "Gyalshing",
         description: "Founded: historic origins (lake shrine). Location: Khecheopalri area, West Sikkim.\n\nHistory & significance: While Khecheopalri is famed primarily for its sacred lake, nearby monastic sites support pilgrim visitation and ritual activity. The combined natural and religious landscape makes this area a significant heritage destination."
       },
 
-      { title: "Tendong Gumpa", image: "monasterypic.jfif", district: "Namchi",
+      { title: "Tendong Gumpa", image: "14.webp", district: "Namchi",
         description: "Founded: historic local foundation (site linked to Tendong peak). Location: Tendong hill area, South Sikkim.\n\nHistory & significance: Tendong Gumpa forms part of a sacred hill complex important for pilgrimage and scenic views. The gompa ties natural veneration with ritual practice and is popular with visitors exploring the Namchi corridor."
       },
 
-      { title: "Yangang Gonpa", image: "monasterypic.jfif", district: "Namchi",
+      { title: "Yangang Gonpa", image: "15.webp", district: "Namchi",
         description: "Founded: historic foundation (18th–19th centuries). Location: Yangang area, Namchi district.\n\nHistory & significance: Yangang Gonpa is a venerable monastery in the southern hills, known for its scenic setting and role in local ritual calendars; it complements modern pilgrimage infrastructure in the district."
       },
 
-      { title: "Parbing Monastery", image: "monasterypic.jfif", district: "Namchi",
+      { title: "Parbing Monastery", image: "16.webp", district: "Namchi",
         description: "Founded: early 20th century. Location: Namchi district, South Sikkim.\n\nHistory & significance: Parbing Monastery serves local communities with liturgical services and novice instruction; it has formed part of the district’s evolving monastic geography over the 20th century."
       },
 
-      { title: "Namtse Nga-Dag Monastery", image: "monasterypic.jfif", district: "Namchi",
+      { title: "Namtse Nga-Dag Monastery", image: "17.webp", district: "Namchi",
         description: "Founded: 17th–18th century (historic origins). Location: South Sikkim.\n\nHistory & significance: One of the older establishments in the south, Namtse Nga-Dag bears historical importance in regional devotional life and continues to serve as a focal point for festivals and pilgrimage."
       },
 
-      { title: "Wok Pabong Monastery", image: "monasterypic.jfif", district: "Namchi",
+      { title: "Wok Pabong Monastery", image: "18.webp", district: "Namchi",
         description: "Founded: early 20th century. Location: Namchi district.\n\nHistory & significance: Wok Pabong is recognized for its heritage and its contributions to local religious education, maintaining customary festivals and community ceremonies in the district."
       },
 
-      { title: "Rinchenpung Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Rinchenpung Monastery", image: "19.webp", district: "Gyalshing",
         description: "Founded: 18th century (historic). Location: West Sikkim (Rinchenpung area).\n\nHistory & significance: Rinchenpung represents an early modern foundation that preserves ritual and mural traditions; it continues to welcome pilgrims and contributes to the artistic heritage of the west."
       },
 
-      { title: "Samdopa Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Samdopa Monastery", image: "20.webp", district: "Gyalshing",
         description: "Founded: mid-20th century. Location: West Sikkim.\n\nHistory & significance: A local centre for ritual and community events, Samdopa illustrates 20th-century institutional growth in the western district and hosts customary festivals."
       },
 
-      { title: "Pabyuk Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Pabyuk Monastery", image: "21.webp", district: "Gyalshing",
         description: "Founded: 19th century. Location: West Sikkim.\n\nHistory & significance: Pabyuk Monastery preserves 19th-century devotional practices and provides ongoing monastic instruction for its locality, forming part of West Sikkim’s heritage network."
       },
 
-      { title: "Ray Mindu Katenling Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Ray Mindu Katenling Monastery", image: "14.webp", district: "Gyalshing",
         description: "Founded: 19th century. Location: West Sikkim.\n\nHistory & significance: Ray Mindu Katenling houses important local ritual practices and continues to serve as a site of village devotion and teaching."
       },
 
-      { title: "Simig Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Simig Monastery", image: "13.webp", district: "Gyalshing",
         description: "Founded: 19th century. Location: West Sikkim.\n\nHistory & significance: A historic monastery contributing to the spiritual life of nearby communities and preserving local artistic and ritual traditions."
       },
 
-      { title: "Sumon Thubten Gatsalling Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Sumon Thubten Gatsalling Monastery", image: "12.webp", district: "Gyalshing",
         description: "Founded: early 20th century. Location: West Sikkim.\n\nHistory & significance: This monastery preserves monastic learning and hosts community ceremonies; it forms an integral part of local religious life in the west."
       },
 
-      { title: "Tingkye Gonjang Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Tingkye Gonjang Monastery", image: "11.webp", district: "Gyalshing",
         description: "Founded: late 20th century. Location: West Sikkim.\n\nHistory & significance: A contemporary monastic foundation, Tingkye Gonjang supports ritual life and community events in its locality while preserving traditions."
       },
 
-      { title: "Tsulakhang Monastery", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Tsulakhang Monastery", image: "14.webp", district: "Gangtok",
         description: "Founded: late 19th century. Location: Gangtok, East Sikkim.\n\nHistory & significance: Tsulakhang is a neighborhood temple complex with historic lineage and active contemporary religious importance for residents of the capital."
       },
 
-      { title: "Karthok (alternate listing)", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Karthok (alternate listing)", image: "15.webp", district: "Gyalshing",
         description: "Founded: historic origins. Location: West Sikkim.\n\nHistory & significance: Additional local Karthok-associated centres preserve mural art and traditional rituals; small clusters of monasteries with similar names represent the region’s layered monastic geography."
       },
 
-      { title: "Rinchen Choling Tamu Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Rinchen Choling Tamu Monastery", image: "16.webp", district: "Gyalshing",
         description: "Founded: modern era (late 20th century). Location: West Sikkim.\n\nHistory & significance: A modern monastic institute contributing to district education and ritual programming, Rinchen Choling supports the continuity of liturgical practice in the region."
       },
 
-      { title: "Bermiok Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Bermiok Monastery", image: "17.webp", district: "Gyalshing",
         description: "Founded: 19th century. Location: Bermiok area, West Sikkim.\n\nHistory & significance: Bermiok Monastery supports local ritual performances and preserves monastic teachings for nearby communities."
       },
 
-      { title: "Hungri Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Hungri Monastery", image: "19.webp", district: "Gyalshing",
         description: "Founded: early 20th century. Location: West Sikkim.\n\nHistory & significance: Hungri Monastery has been part of local devotional life for generations and remains active in community rituals and education."
       },
 
-      { title: "Khachoedpalri Monastery (local variant)", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Khachoedpalri Monastery (local variant)", image: "18.webp", district: "Gyalshing",
         description: "Founded: historic period. Location: West Sikkim.\n\nHistory & significance: Local foundations near sacred lakes and hilltops often form complementary pilgrimage circuits and support devotional practices tied to the natural landscape."
       },
 
-      { title: "Melli-Atsing Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Melli-Atsing Monastery", image: "19.webp", district: "Gyalshing",
         description: "Founded: 18th century. Location: Melli-Atsing area, West Sikkim.\n\nHistory & significance: A historic institutional presence, Melli-Atsing is part of the network of monasteries that have long structured devotional life in the western corridor."
       },
 
-      { title: "Nubling Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Nubling Monastery", image: "20.webp", district: "Gyalshing",
         description: "Founded: 19th century. Location: West Sikkim.\n\nHistory & significance: Nubling is emblematic of 19th-century monastic foundations supporting village rituals, mural arts and local festivals."
       },
 
-      { title: "Okhery Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Okhery Monastery", image: "21.webp", district: "Gyalshing",
         description: "Founded: mid-20th century. Location: Okhery area, West Sikkim.\n\nHistory & significance: Okhery Monastery serves community needs and preserves the district’s seasonal festival schedule."
       },
 
-      { title: "Aden Wolung Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Aden Wolung Monastery", image: "14.webp", district: "Gyalshing",
         description: "Founded: early 20th century. Location: Aden area, West Sikkim.\n\nHistory & significance: Aden Wolung provides instruction and ritual services, and contributes to west Sikkim’s cultural fabric through its ceremonies and gatherings."
       },
 
-      { title: "Chakung Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Chakung Monastery", image: "15.webp", district: "Gyalshing",
         description: "Founded: 19th century. Location: Chakung area, West Sikkim.\n\nHistory & significance: Chakung Monastery preserves mural painting and regional ritual traditions and supports the devotional life of nearby villages."
       },
 
-      { title: "Dodak Tamu Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Dodak Tamu Monastery", image: "16.webp", district: "Gyalshing",
         description: "Founded: early 21st century. Location: West Sikkim.\n\nHistory & significance: A contemporary foundation, Dodak Tamu reflects community-based monastic renewal and modern ritual programming."
       },
 
-      { title: "Barphog Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Barphog Monastery", image: "17.webp", district: "Mangan",
         description: "Founded: mid-20th century. Location: Barphog area, North Sikkim.\n\nHistory & significance: Serving northern villages, Barphog Monastery is an example of monasteries adapted to high-altitude community contexts, supporting festivals and local teaching."
       },
 
-      { title: "Gor Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Gor Monastery", image: "18.webp", district: "Mangan",
         description: "Founded: 21st century (modern). Location: North Sikkim.\n\nHistory & significance: A modern gompa supporting valley communities, Gor Monastery demonstrates the ongoing establishment of religious centres to meet local needs."
       },
 
-      { title: "Hee Gyathang Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Hee Gyathang Monastery", image: "19.webp", district: "Mangan",
         description: "Founded: early 20th century. Location: Hee Gyathang area, North Sikkim.\n\nHistory & significance: Hee Gyathang has a long role in northern devotional life and acts as a link between mountaintop communities and valley ritual networks."
       },
 
-      { title: "Kabi Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Kabi Monastery", image: "20.webp", district: "Mangan",
         description: "Founded: early 20th century. Location: North Sikkim.\n\nHistory & significance: Kabi Monastery supports local festivals and monastic instruction in its valley community, demonstrating the diffusion of monastic networks across remote areas."
       },
 
-      { title: "Labrang Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Labrang Monastery", image: "21.webp", district: "Mangan",
         description: "Founded: 19th century. Location: Labrang area, North Sikkim.\n\nHistory & significance: Labrang preserves older teaching traditions and supports ritual calendars for its district, underscoring the historical spread of Buddhism into high valleys."
       },
 
-      { title: "Lachen Thangu Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Lachen Thangu Monastery", image: "14.webp", district: "Mangan",
         description: "Founded: mid-20th century. Location: Thangu (near Lachen), North Sikkim.\n\nHistory & significance: The monastery serves pilgrims and acts as a base for visitors exploring northern high-altitude lakes and scenic passes, integrating local ritual life with tourism."
       },
 
-      { title: "Lingthem Gonpa", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Lingthem Gonpa", image: "15.webp", district: "Mangan",
         description: "Founded: 19th century. Location: Lingthem area, North Sikkim.\n\nHistory & significance: Lingthem Gonpa is a historical gompa that continues to provide teaching and ritual services to its mountain community."
       },
 
-      { title: "Malam Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Malam Monastery", image: "16.webp", district: "Mangan",
         description: "Founded: early 20th century. Location: Malam area, North Sikkim.\n\nHistory & significance: Malam is a regional monastery assisting local religious life and hosting customary festival practices."
       },
 
-      { title: "Nage Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Nage Monastery", image: "17.webp", district: "Mangan",
         description: "Founded: early 20th century. Location: North Sikkim.\n\nHistory & significance: A community-focused monastery that provides religious instruction and hosts seasonal events central to village devotional life."
       },
 
-      { title: "Ringyim Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Ringyim Monastery", image: "19.webp", district: "Mangan",
         description: "Founded: 19th century. Location: North Sikkim.\n\nHistory & significance: Ringyim preserves ritual forms and supports festivals that maintain continuity across northern valley communities."
       },
 
-      { title: "Shagyong Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Shagyong Monastery", image: "15.webp", district: "Mangan",
         description: "Founded: mid-20th century. Location: North Sikkim.\n\nHistory & significance: Shagyong contributes to local festival life and continues to educate novices within its regional monastic network."
       },
 
-      { title: "Ship Kunzang Choling Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Ship Kunzang Choling Monastery", image: "14.webp", district: "Mangan",
         description: "Founded: turn of 20th century. Location: North Sikkim.\n\nHistory & significance: This historic monastery remains a focal point for teaching and ritual practice among its surrounding communities."
       },
 
-      { title: "Silem Phagyal Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Silem Phagyal Monastery", image: "3.webp", district: "Mangan",
         description: "Founded: late 20th century. Location: North Sikkim.\n\nHistory & significance: A modern establishment that supports the ritual calendar and local educational needs in its region."
       },
 
-      { title: "Singchit Ngadag Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Singchit Ngadag Monastery", image: "5.webp", district: "Mangan",
         description: "Founded: late 19th century. Location: North Sikkim.\n\nHistory & significance: Known for ritual observances, this monastery anchors devotion and occasional pilgrimage in its valley."
       },
 
-      { title: "Sontam Tensung Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Sontam Tensung Monastery", image: "4.webp", district: "Mangan",
         description: "Founded: late 19th century. Location: North Sikkim.\n\nHistory & significance: A traditional monastery continuing to host regional festivals and preserve monastic teaching."
       },
 
-      { title: "Tareng Gonpa", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Tareng Gonpa", image: "7.webp", district: "Mangan",
         description: "Founded: early 20th century. Location: North Sikkim.\n\nHistory & significance: Tareng Gonpa is a local religious centre supporting valley pilgrims and maintaining customary rites."
       },
 
-      { title: "Tsawang Choling Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Tsawang Choling Monastery", image: "9.webp", district: "Mangan",
         description: "Founded: early-mid 20th century. Location: North Sikkim.\n\nHistory & significance: Tsawang Choling contributes to community liturgy and serves as an educational centre for novices."
       },
 
-      { title: "Tsungthang Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Tsungthang Monastery", image: "10.webp", district: "Mangan",
         description: "Founded: late 18th century. Location: North Sikkim.\n\nHistory & significance: Tsungthang is historically significant for preserving older ritual traditions and continuing to serve local pilgrims."
       },
 
-      { title: "Tingbung Monastery", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Tingbung Monastery", image: "11.webp", district: "Mangan",
         description: "Founded: 19th century. Location: North Sikkim.\n\nHistory & significance: Tingbung remains a local centre for ritual practice and education, reflecting the spread of monastic life into Himalayan valleys."
       },
 
-      { title: "Amba Mamring Monastery", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Amba Mamring Monastery", image: "13.webp", district: "Gangtok",
         description: "Founded: 1929. Location: Amba Mamring area, East Sikkim.\n\nHistory & significance: A 20th-century foundation that serves valley communities, Amba Mamring is known locally for its approachable monastic presence and regular ritual cycle."
       },
 
-      { title: "Bakcham Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Bakcham Monastery", image: "15.webp", district: "Gyalshing",
         description: "Founded: 1966. Location: Bakcham region, West Sikkim.\n\nHistory & significance: A mid-20th-century monastery that reflects monastic revitalisation and provides ritual services to surrounding communities."
       },
 
-      { title: "Bongyong Ani Gonpa", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Bongyong Ani Gonpa", image: "16.webp", district: "Gyalshing",
         description: "Founded: 2005. Location: Bongyong area, West Sikkim.\n\nHistory & significance: This contemporary nunnery supports female monastic education and underscores institutional expansion for women’s religious practice."
       },
 
-      { title: "Burtuk Ugen Pemacholing Monastery", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Burtuk Ugen Pemacholing Monastery", image: "2.webp", district: "Gangtok",
         description: "Founded: 2000. Location: Burtuk area, East Sikkim.\n\nHistory & significance: A modern institute, Burtuk Ugen Pemacholing offers teachings, pujas and community-focused services near Gangtok."
       },
 
-      { title: "Choten Monastery (Gangtok complex)", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Choten Monastery (Gangtok complex)", image: "4.webp", district: "Gangtok",
         description: "Founded: mid-20th century. Location: Gangtok, East Sikkim.\n\nHistory & significance: The Choten complex is a distinctive stupa and temple area integrated with Gangtok’s devotional landscape and is commonly included in city religious tours."
       },
 
-      { title: "Dichen Choling Monastery", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Dichen Choling Monastery", image: "6.webp", district: "Gangtok",
         description: "Founded: 1987. Location: East Sikkim.\n\nHistory & significance: A late-20th-century foundation, Dichen Choling contributes to the network of Nyingma and Kagyu centres near the capital, hosting regular rituals and educational activities."
       },
 
-      { title: "Dolepchen Boudha Sanskrit Monastery", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Dolepchen Boudha Sanskrit Monastery", image: "8.webp", district: "Gangtok",
         description: "Founded: 1991. Location: Dolepchen area, East Sikkim.\n\nHistory & significance: Known for scriptural studies and Sanskrit preservation, this monastery combines textual education with liturgical duties."
       },
 
-      { title: "Duchi Gyalton Monastery", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Duchi Gyalton Monastery", image: "12.webp", district: "Gangtok",
         description: "Founded: 2002. Location: East Sikkim.\n\nHistory & significance: A small modern gompa serving local ritual needs and representing the continuing creation of monastic centres in urban-adjacent areas."
       },
 
-      { title: "Kagon Tshechhogling Monastery", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Kagon Tshechhogling Monastery", image: "14.webp", district: "Gangtok",
         description: "Founded: 1977. Location: East Sikkim.\n\nHistory & significance: A modern teaching centre, Kagon Tshechhogling provides ritual training and community services in the Gangtok district."
       },
 
-      { title: "Kathog Dorjeden Monastery", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Kathog Dorjeden Monastery", image: "16.webp", district: "Gangtok",
         description: "Founded: mid-19th century. Location: East Sikkim.\n\nHistory & significance: A historically rooted gompa that continues the tradition of monastic teaching and ritual observance for its district."
       },
 
-      { title: "Khatek Pema Choling Monastery", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Khatek Pema Choling Monastery", image: "18.webp", district: "Gangtok",
         description: "Founded: 1985. Location: East Sikkim.\n\nHistory & significance: A district foundation focusing on ritual practice and education, Khatek Pema Choling supports local devotional life and festivals."
       },
 
-      { title: "Linkoed Monastery", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Linkoed Monastery", image: "21.webp", district: "Gangtok",
         description: "Founded: 19th century. Location: East Sikkim.\n\nHistory & significance: Linkoed is among older monasteries near Gangtok, notable for its role in maintaining regional ritual observances and training novices."
       },
 
-      { title: "Martam Namdzong", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Martam Namdzong", image: "4.webp", district: "Gyalshing",
         description: "Founded: 1917. Location: Martam area, West Sikkim.\n\nHistory & significance: Martam Namdzong serves western Sikkim through monastic education and ritual practice; its early-20th-century foundation reflects changes in regional patronage and institutional growth."
       },
 
-      { title: "Martam Tsangkhar Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Martam Tsangkhar Monastery", image: "16.webp", district: "Gyalshing",
         description: "Founded: 1951. Location: Martam region, West Sikkim.\n\nHistory & significance: Serving the Martam area, this monastery is an active local centre for liturgy and community rites, illustrating the twentieth-century expansion of monastic networks."
       },
 
-      { title: "Old Rumtek (historic site)", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Old Rumtek (historic site)", image: "12.webp", district: "Gangtok",
         description: "Founded: 18th century (original Rumtek seat). Location: Rumtek area, East Sikkim.\n\nHistory & significance: The historic seat that inspired the modern Rumtek Dharma Chakra Centre, the original complex is a part of the Karma Kagyu lineage’s long story of continuity and re-establishment in exile."
       },
 
-      { title: "Phensang Monastery (north-central)", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Phensang Monastery (north-central)", image: "11.webp", district: "Mangan",
         description: "Founded: 18th century. Location: Phensang area, North Sikkim.\n\nHistory & significance: Phensang is a longstanding monastery in northern Sikkim, preserving ritual life and teaching traditions across generations."
       },
 
-      { title: "Norbuling Monastery (local seat)", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Norbuling Monastery (local seat)", image: "10.webp", district: "Gyalshing",
         description: "Founded: 20th century. Location: West Sikkim.\n\nHistory & significance: Local seats such as Norbuling provide parish-level ritual services and preserve community-based liturgical practice."
       },
 
-      { title: "Raloong Monastery", image: "monasterypic.jfif", district: "Namchi",
+      { title: "Raloong Monastery", image: "5.webp", district: "Namchi",
         description: "Founded: mid-20th century. Location: South Sikkim.\n\nHistory & significance: Raloong supports southern district rituals and is visited by devotees participating in local festivals and teaching programmes."
       },
 
-      { title: "Radong Tensung Monastery", image: "monasterypic.jfif", district: "Namchi",
+      { title: "Radong Tensung Monastery", image: "9.webp", district: "Namchi",
         description: "Founded: mid-20th century. Location: Radong area, Namchi district.\n\nHistory & significance: Radong Tensung is part of South Sikkim’s network of monasteries and plays a role in district religious life and celebrations."
       },
 
-      { title: "Rhenock Tashi Monastery", image: "monasterypic.jfif", district: "Pakyong",
+      { title: "Rhenock Tashi Monastery", image: "8.webp", district: "Pakyong",
         description: "Founded: early 20th century. Location: Rhenock region, Pakyong district.\n\nHistory & significance: A district centre, Rhenock Tashi maintains monastic instruction and festival observance for its community."
       },
 
-      { title: "Sang Monastery (local)", image: "monasterypic.jfif", district: "Namchi",
+      { title: "Sang Monastery (local)", image: "3.webp", district: "Namchi",
         description: "Founded: early 20th century. Location: Namchi district.\n\nHistory & significance: Sang Monastery sustains novice training and provides ritual services to the surrounding villages, continuing the district’s devotional traditions."
       },
 
-      { title: "Sang-Ngor Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Sang-Ngor Monastery", image: "4.webp", district: "Gyalshing",
         description: "Founded: mid-20th century. Location: West Sikkim.\n\nHistory & significance: Established in the 20th century, Sang-Ngor fosters monastic life and ritual continuity in west Sikkim."
       },
 
-      { title: "Simik Monastery (local)", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Simik Monastery (local)", image: "15.webp", district: "Gyalshing",
         description: "Founded: historic origins. Location: West Sikkim.\n\nHistory & significance: A village monastery that supports local devotions and retains regional ritual practices."
       },
 
-      { title: "Singh? (local spelling variants)", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Singh? (local spelling variants)", image: "2.webp", district: "Gangtok",
         description: "Founded: historic / modern variations. Location: East Sikkim.\n\nHistory & significance: Many small gompas with variant local spellings serve neighbourhoods and preserve micro-traditions within the larger Sikkimese monastic network."
       },
 
-      { title: "Taglung Domsumling Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Taglung Domsumling Monastery", image: "17.webp", district: "Gyalshing",
         description: "Founded: 1987. Location: West Sikkim.\n\nHistory & significance: Taglung Domsumling is a modern centre active in community rituals and spiritual education for its district."
       },
 
-      { title: "Taktse Ani Gonpa", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Taktse Ani Gonpa", image: "21.webp", district: "Gangtok",
         description: "Founded: late 20th century. Location: East Sikkim.\n\nHistory & significance: A nunnery providing education and ritual training, Taktse Ani supports women’s monastic practice and local outreach programmes."
       },
 
-      { title: "Thumon Monastery", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Thumon Monastery", image: "9.webp", district: "Gyalshing",
         description: "Founded: early 20th century. Location: West Sikkim.\n\nHistory & significance: Thumon is an early-20th-century monastery that remains engaged in local teaching and ceremonial life."
       },
 
-      { title: "Tendrel Monastery (local)", image: "monasterypic.jfif", district: "Pakyong",
+      { title: "Tendrel Monastery (local)", image: "10.webp", district: "Pakyong",
         description: "Founded: mid-20th century. Location: Pakyong district.\n\nHistory & significance: Tendrel and similar local monasteries contribute to parish-level ritual practices and community teachings across the eastern districts."
       },
 
-      { title: "Tsangek Monastery", image: "monasterypic.jfif", district: "Namchi",
+      { title: "Tsangek Monastery", image: "11.webp", district: "Namchi",
         description: "Founded: 19th century. Location: South Sikkim.\n\nHistory & significance: Tsangek has been a site of local devotion and remains important for the teaching of novices and hosting seasonal ceremonies."
       },
 
-      { title: "Tsawang (local gompa)", image: "monasterypic.jfif", district: "Mangan",
+      { title: "Tsawang (local gompa)", image: "5.webp", district: "Mangan",
         description: "Founded: early 20th century. Location: North Sikkim.\n\nHistory & significance: Tsawang is a local center sustaining monastic education and ritual events for valley communities."
       },
 
-      { title: "Tsulakhang (Gangtok complex)", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Tsulakhang (Gangtok complex)", image: "8.webp", district: "Gangtok",
         description: "Founded: historic lineage (19th century). Location: Gangtok, East Sikkim.\n\nHistory & significance: A neighborhood temple complex that remains central to Gangtok’s religious life and contemporary pilgrimage activity."
       },
 
-      { title: "Zong Dog Palri Fo Brang (local replica/centre)", image: "monasterypic.jfif", district: "Gyalshing",
+      { title: "Zong Dog Palri Fo Brang (local replica/centre)", image: "10.webp", district: "Gyalshing",
         description: "Founded: modern-era. Location: West Sikkim.\n\nHistory & significance: Modern centres that replicate traditional iconography provide accessible spaces for pilgrimage and education while supporting the preservation of Tibetan-Buddhist art traditions."
       },
 
-      { title: "Additional Local Gompas (collection)", image: "monasterypic.jfif", district: "Gangtok",
+      { title: "Additional Local Gompas (collection)", image: "3.webp", district: "Gangtok",
         description: "Founded: various periods. Location: Gangtok district and suburbs.\n\nHistory & significance: Numerous smaller gompas across the capital support community rituals, novice training and festival observance, and together form the fabric of daily devotion in urban areas."
       }
     ];
@@ -829,7 +829,7 @@
       monasteryListSection.style.display = 'none';
       monasteryDetail.style.display = 'block';
       detailTitle.textContent = item.title;
-      detailImage.src = item.image || 'monasterypic.jfif';
+      detailImage.src = item.image || '14.webp';
       // Format description: replace \n\n with paragraph breaks
       const parts = item.description.split('\\n\\n');
       detailDescription.innerHTML = parts.map(p => `<p style="margin:10px 0;">${escapeHtml(p)}</p>`).join('');
@@ -924,4 +924,3 @@
   </script>
 </body>
 </html>
-
