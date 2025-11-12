@@ -39,7 +39,7 @@ How to use the website:
 
 
 Project by : 
-Sujay Shetty
-Shlok Pandey
-Sanal Nazareth 
-Roshan Patil
+Sujay Shetty, 
+Shlok Pandey, 
+Sanal Nazareth,  
+Roshan Patil.
