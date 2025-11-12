@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Help Center | Travel Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="sidebar.css">
   <style>
     :root {
       --primary: #4a6fa5;
@@ -25,25 +26,10 @@
       color: #333;
     }
     
-    header {
-      background-color: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+    /* header visuals are centralized in sidebar.css */
+    header { display:flex; align-items:center; justify-content:space-between; }
     
-    #menu-toggle {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      padding: 5px 10px;
-    }
+    /* menu-toggle handled in sidebar.css (centralized) */
     
     header h1 {
       margin: 0;
@@ -271,26 +257,36 @@
     <button id="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
     <h1>Help Center</h1>
     <nav>
-      <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      <a id="logout-btn" href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </nav>
   </header>
 
   <!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
-    <div class="sidebar-header">
-      <img src="C:\Users\Win\Desktop\tripease\harsh.jpg" alt="User Profile" class="profile-img">
-      <h3>Sujay Shetty</h3>
-      <p>Gold Member</p>
-    </div>
-    <ul>
-      <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
-      <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
-      <li><a href="mytrip.html"><i class="fas fa-suitcase"></i> My Trips</a></li>
-      <li><a href="transaction.html"><i class="fas fa-receipt"></i> Transactions</a></li>
-      <li><a href="help.html" class="active"><i class="fas fa-question-circle"></i> Help</a></li>
-      <li><a href="setting.html"><i class="fas fa-cog"></i> Settings</a></li>
-    </ul>
-  </div>
+  <!-- Sidebar (shared include) -->
+  <div id="sidebar-placeholder"></div>
+  <script>
+    (async function(){
+  const fallback = `<div id="sidebar" class="sidebar" aria-hidden="true">\n  <div class="sidebar-header">\n    <img src="monasterypic.jfif" alt="User Profile" class="profile-img">\n    <h3>Sujay Shetty</h3>\n    <p>Gold Member</p>\n  </div>\n  <ul>\n    <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>\n    <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>\n    <li><a href="mytrip.html"><i class="fas fa-suitcase"></i> My Trips</a></li>\n    <li><a href="heritage.html"><i class="fas fa-landmark"></i> Heritage Cloud</a></li>\n    <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>\n    <li><a href="setting.html"><i class="fas fa-cog"></i> Settings</a></li>\n  </ul>\n</div>`;
+      try{
+        const res = await fetch('sidebar.html');
+        if(!res.ok) throw new Error('Network response was not ok');
+        const html = await res.text();
+        const ph = document.getElementById('sidebar-placeholder');
+        ph.insertAdjacentHTML('beforebegin', html);
+        ph.remove();
+      }catch(e){
+        const ph = document.getElementById('sidebar-placeholder');
+        ph.insertAdjacentHTML('beforebegin', fallback);
+        ph.remove();
+        console.warn('Loaded fallback sidebar due to fetch error:', e);
+      }
+      // set active link based on filename
+      const current = (location.pathname.split('/').pop() || 'home.html').toLowerCase();
+      document.querySelectorAll('#sidebar ul li a').forEach(a => {
+        try{ if(a.getAttribute('href') && a.getAttribute('href').toLowerCase() === current) a.classList.add('active'); }catch(e){}
+      });
+    })();
+  </script>
 
   <!-- Main Content -->
   <div class="container" id="main-content">
