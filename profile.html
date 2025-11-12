@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Profile | Travel Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="sidebar.css">
   <style>
     :root {
       --primary: #4a6fa5;
@@ -27,9 +26,28 @@
     }
     
     /* header visuals are centralized in sidebar.css */
-    header { display:flex; align-items:center; justify-content:space-between; }
+    header { 
+      display:flex; 
+      align-items:center; 
+      justify-content:space-between; 
+      padding: 15px 20px;
+      background-color: white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 98;
+    }
     
     /* menu-toggle handled in sidebar.css (centralized) */
+    #menu-toggle {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: var(--secondary);
+    }
     
     header h1 {
       margin: 0;
@@ -232,6 +250,7 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
+      transition: background-color 0.3s;
     }
     
     .btn:hover {
@@ -244,6 +263,84 @@
       background-color: #f8f9fa;
       color: #333;
       border: 1px solid #ddd;
+    }
+    
+    .btn-success {
+      background-color: var(--success);
+    }
+    
+    .btn-danger {
+      background-color: var(--danger);
+    }
+    
+    /* Modal for password change */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+    
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+    
+    .modal-title {
+      margin: 0;
+      color: var(--secondary);
+    }
+    
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 20px;
+      cursor: pointer;
+      color: #666;
+    }
+    
+    .form-group {
+      margin-bottom: 15px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    
+    .form-control {
+      width: 100%;
+      padding: 8px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+    
+    .form-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
     }
     
     @media (max-width: 768px) {
@@ -268,92 +365,96 @@
   </header>
 
   <!-- Sidebar -->
-  <!-- Sidebar (shared include) -->
-  <div id="sidebar-placeholder"></div>
-  <script>
-    (async function(){
-  const fallback = `<div id="sidebar" class="sidebar" aria-hidden="true">\n  <div class="sidebar-header">\n    <img src="monasterypic.jfif" alt="User Profile" class="profile-img">\n    <h3>Sujay Shetty</h3>\n    <p>Gold Member</p>\n  </div>\n  <ul>\n    <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>\n    <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>\n    <li><a href="mytrip.html"><i class="fas fa-suitcase"></i> My Trips</a></li>\n    <li><a href="heritage.html"><i class="fas fa-landmark"></i> Heritage Cloud</a></li>\n    <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>\n    <li><a href="setting.html"><i class="fas fa-cog"></i> Settings</a></li>\n  </ul>\n</div>`;
-      try{
-        const res = await fetch('sidebar.html');
-        if(!res.ok) throw new Error('Network response was not ok');
-        const html = await res.text();
-        const ph = document.getElementById('sidebar-placeholder');
-        ph.insertAdjacentHTML('beforebegin', html);
-        ph.remove();
-      }catch(e){
-        const ph = document.getElementById('sidebar-placeholder');
-        ph.insertAdjacentHTML('beforebegin', fallback);
-        ph.remove();
-        console.warn('Loaded fallback sidebar due to fetch error:', e);
-      }
-      // set active link based on filename
-      const current = (location.pathname.split('/').pop() || 'home.html').toLowerCase();
-      document.querySelectorAll('#sidebar ul li a').forEach(a => {
-        try{ if(a.getAttribute('href') && a.getAttribute('href').toLowerCase() === current) a.classList.add('active'); }catch(e){}
-      });
-    })();
-  </script>
+  <div id="sidebar" class="sidebar" aria-hidden="true">
+    <div class="sidebar-header">
+      <img src="harsh.jpg" alt="User Profile" class="profile-img" id="sidebar-profile-img">
+      <h3 id="sidebar-user-name">Sujay Shetty</h3>
+      <p id="sidebar-member-status">Gold Member</p>
+    </div>
+    <ul>
+      <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
+      <li><a href="profile.html" class="active"><i class="fas fa-user"></i> Profile</a></li>
+      <li><a href="mytrip.html"><i class="fas fa-suitcase"></i> My Trips</a></li>
+      <li><a href="heritage.html"><i class="fas fa-landmark"></i> Heritage Cloud</a></li>
+      <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>
+      <li><a href="setting.html"><i class="fas fa-cog"></i> Settings</a></li>
+    </ul>
+  </div>
 
   <!-- Main Content -->
   <div class="container" id="main-content">
     <main id="profile-section">
       <div class="profile-header">
         <h2>My Profile</h2>
-        <button class="btn edit-profile"><i class="fas fa-pencil-alt"></i> Edit Profile</button>
       </div>
       
       <section class="card profile-card">
         <div class="profile-info">
-          <img src="C:\Users\Win\Desktop\tripease\WhatsApp Image 2025-09-20 at 12.17.05_5537a95d.jpg" alt="Profile Photo" class="profile-photo">
+          <img src="harsh.jpg" alt="Profile Photo" class="profile-photo" id="profile-photo">
           <div>
-            <h3>Sujay Shetty</h3>
-            <p class="member-status">Gold Member</p>
-            <p class="member-since">Member since: June 2018</p>
+            <input id="nameInput" type="text" placeholder="Your full name" class="editable" disabled style="font-size:20px;border:none;background:transparent;color:var(--secondary);font-weight:600;">
+            <p class="member-since" id="memberSinceDisplay">Member since: June 2023</p>
+            <div style="margin-top:8px;">
+              <input id="photoInput" type="file" accept="image/*" style="display:none;">
+              <button class="btn btn-small" id="changePhotoBtn">Change Photo</button>
+            </div>
           </div>
         </div>
-        
+
         <div class="profile-details">
           <div class="detail-group">
             <h4>Personal Information</h4>
             <div class="detail-item">
               <span class="detail-label">Email:</span>
-              <span class="detail-value">Sujayshetty@example.com</span>
+              <input id="emailInput" class="detail-value editable" type="email" placeholder="you@example.com" disabled style="text-align:right;border:none;background:transparent;color:#333;">
             </div>
             <div class="detail-item">
               <span class="detail-label">Phone:</span>
-              <span class="detail-value">+91 8465723543</span>
+              <input id="phoneInput" class="detail-value editable" type="tel" placeholder="+91 9XXXXXXXXX" disabled style="text-align:right;border:none;background:transparent;color:#333;">
             </div>
             <div class="detail-item">
               <span class="detail-label">Date of Birth:</span>
-              <span class="detail-value">January 15, 2005</span>
+              <input id="dobInput" class="detail-value editable" type="date" disabled style="text-align:right;border:none;background:transparent;color:#333;">
             </div>
           </div>
-          
+
           <div class="detail-group">
             <h4>Account Security</h4>
             <div class="detail-item">
               <span class="detail-label">Password:</span>
-              <span class="detail-value">••••••••</span>
-              <button class="btn-small">Change</button>
+              <span class="detail-value" id="passwordDisplay">••••••••</span>
+              <button class="btn-small" id="changePasswordBtn">Change</button>
             </div>
             <div class="detail-item">
               <span class="detail-label">Two-Factor Auth:</span>
-              <span class="detail-value">Enabled</span>
-              <button class="btn-small">Manage</button>
+              <span class="detail-value" id="twoFactorStatus">Enabled</span>
+              <button class="btn-small" id="manage2faBtn">Manage</button>
             </div>
           </div>
-          
+
           <div class="detail-group">
             <h4>Preferences</h4>
             <div class="detail-item">
-              <span class="detail-label">Preferred Language:</span>
-              <span class="detail-value">English</span>
+              <span class="detail-label">Travel Interests:</span>
+              <input id="interestsInput" class="detail-value editable" type="text" placeholder="e.g. Beach, Adventure" disabled style="text-align:right;border:none;background:transparent;color:#333;">
             </div>
             <div class="detail-item">
-              <span class="detail-label">Travel Interests:</span>
-              <span class="detail-value">Beach, Adventure, Cultural</span>
+              <span class="detail-label">Language:</span>
+              <select id="languageInput" class="detail-value editable" disabled style="text-align:right;border:none;background:transparent;color:#333;width:auto;">
+                <option value="en">English</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+              </select>
             </div>
           </div>
+        </div>
+
+        <div style="margin-top:16px; display:flex; gap:8px;">
+          <button class="btn edit-profile" id="editBtn"><i class="fas fa-pencil-alt"></i> Edit Profile</button>
+          <button class="btn btn-success" id="saveBtn" style="display:none;"><i class="fas fa-check"></i> Save</button>
+          <button class="btn btn-small" id="cancelBtn" style="display:none;">Cancel</button>
+          <span id="saveStatus" style="margin-left:8px;color:var(--success);display:none;align-self:center;">Saved</span>
         </div>
       </section>
       
@@ -363,8 +464,8 @@
           <div class="activity-item">
             <i class="fas fa-plane activity-icon"></i>
             <div>
-              <p><strong>Flight booked to Bali</strong></p>
-              <p class="activity-date">July 15, 2023</p>
+              <p><strong>Rumtek Dharma Chakra Centre</strong></p>
+              <p class="activity-date">June 15, 2023</p>
             </div>
           </div>
           <div class="activity-item">
@@ -386,11 +487,301 @@
     </main>
   </div>
 
+  <!-- Password Change Modal -->
+  <div id="passwordModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Change Password</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div class="form-group">
+        <label for="currentPassword">Current Password</label>
+        <input type="password" id="currentPassword" class="form-control" placeholder="Enter current password">
+      </div>
+      <div class="form-group">
+        <label for="newPassword">New Password</label>
+        <input type="password" id="newPassword" class="form-control" placeholder="Enter new password">
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm New Password</label>
+        <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm new password">
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-small" id="cancelPasswordBtn">Cancel</button>
+        <button class="btn btn-success" id="savePasswordBtn">Save Password</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2FA Modal -->
+  <div id="twoFactorModal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">Two-Factor Authentication</h3>
+        <button class="close-modal">&times;</button>
+      </div>
+      <div id="twoFactorContent">
+        <p>Two-factor authentication adds an extra layer of security to your account.</p>
+        <div class="form-group">
+          <label>Status: <span id="twoFactorStatusText">Enabled</span></label>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-danger" id="disable2faBtn">Disable 2FA</button>
+          <button class="btn btn-small" id="close2faBtn">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Toggle sidebar
     document.getElementById('menu-toggle').addEventListener('click', function() {
-      document.getElementById('sidebar').classList.toggle('show');
+      const sb = document.getElementById('sidebar'); 
+      if (sb) sb.classList.toggle('show');
     });
+
+    // Profile editing and persistence (localStorage)
+    (function(){
+      const editBtn = document.getElementById('editBtn');
+      const saveBtn = document.getElementById('saveBtn');
+      const cancelBtn = document.getElementById('cancelBtn');
+      const photoInput = document.getElementById('photoInput');
+      const changePhotoBtn = document.getElementById('changePhotoBtn');
+      const profilePhoto = document.getElementById('profile-photo');
+      const saveStatus = document.getElementById('saveStatus');
+      const changePasswordBtn = document.getElementById('changePasswordBtn');
+      const manage2faBtn = document.getElementById('manage2faBtn');
+      const passwordModal = document.getElementById('passwordModal');
+      const twoFactorModal = document.getElementById('twoFactorModal');
+      const closeModalButtons = document.querySelectorAll('.close-modal');
+      const cancelPasswordBtn = document.getElementById('cancelPasswordBtn');
+      const savePasswordBtn = document.getElementById('savePasswordBtn');
+      const disable2faBtn = document.getElementById('disable2faBtn');
+      const close2faBtn = document.getElementById('close2faBtn');
+      const twoFactorStatusText = document.getElementById('twoFactorStatusText');
+      const twoFactorStatusDisplay = document.getElementById('twoFactorStatus');
+
+      // Sidebar elements
+      const sidebarProfileImg = document.getElementById('sidebar-profile-img');
+      const sidebarUserName = document.getElementById('sidebar-user-name');
+      const sidebarMemberStatus = document.getElementById('sidebar-member-status');
+
+      const fields = ['name','email','phone','dob','language','interests'];
+
+      function getProfile(){
+        try{ 
+          return JSON.parse(localStorage.getItem('tripease_profile')||'{}'); 
+        }catch(e){ 
+          return {}; 
+        }
+      }
+
+      function setProfile(obj){ 
+        localStorage.setItem('tripease_profile', JSON.stringify(obj)); 
+      }
+
+      // Function to update sidebar with profile data
+      function updateSidebar(p) {
+        if (sidebarUserName) {
+          sidebarUserName.textContent = p.name || 'Sujay Shetty';
+        }
+        if (sidebarMemberStatus) {
+          sidebarMemberStatus.textContent = p.status || 'Gold Member';
+        }
+        if (sidebarProfileImg && p.photo) {
+          sidebarProfileImg.src = p.photo;
+        }
+      }
+
+      function loadProfile(){
+        const p = getProfile();
+        document.getElementById('nameInput').value = p.name || 'Sujay Shetty';
+        document.getElementById('emailInput').value = p.email || 'sujay@example.com';
+        document.getElementById('phoneInput').value = p.phone || '+91 9876543210';
+        document.getElementById('dobInput').value = p.dob || '1990-01-01';
+        document.getElementById('languageInput').value = p.language || 'en';
+        document.getElementById('interestsInput').value = p.interests || 'Beach, Adventure';
+        document.getElementById('statusDisplay').textContent = p.status || 'Gold Member';
+        document.getElementById('memberSinceDisplay').textContent = p.memberSince || 'Member since: June 2023';
+        if(p.photo){ 
+          profilePhoto.src = p.photo; 
+        }
+        
+        // Update sidebar with profile data
+        updateSidebar(p);
+        
+        // Set 2FA status
+        const twoFAEnabled = p.twoFactorEnabled !== false; // Default to enabled
+        twoFactorStatusDisplay.textContent = twoFAEnabled ? 'Enabled' : 'Disabled';
+        twoFactorStatusText.textContent = twoFAEnabled ? 'Enabled' : 'Disabled';
+      }
+
+      function setEditable(enabled){
+        document.querySelectorAll('.editable').forEach(el => { 
+          el.disabled = !enabled; 
+          if(enabled){ 
+            el.style.border='1px solid #ddd'; 
+            el.style.padding='6px'; 
+            el.style.borderRadius='6px'; 
+          } else { 
+            el.style.border='none'; 
+            el.style.padding='0'; 
+            el.style.borderRadius='0'; 
+          } 
+        });
+        
+        if(enabled){ 
+          editBtn.style.display='none'; 
+          saveBtn.style.display='inline-flex'; 
+          cancelBtn.style.display='inline-flex'; 
+        } else { 
+          editBtn.style.display='inline-flex'; 
+          saveBtn.style.display='none'; 
+          cancelBtn.style.display='none'; 
+        }
+      }
+
+      function saveProfile(){
+        const p = getProfile();
+        fields.forEach(f => { 
+          const el = document.getElementById(f+'Input'); 
+          if(el) p[f] = el.value.trim(); 
+        });
+        
+        // Keep status/memberSince if present, otherwise set defaults
+        p.status = p.status || 'Gold Member';
+        p.memberSince = p.memberSince || 'Member since: June 2023';
+        setProfile(p);
+        
+        // Update sidebar with new profile data
+        updateSidebar(p);
+        
+        setEditable(false);
+        showSaved();
+      }
+
+      function cancelEdit(){ 
+        loadProfile(); 
+        setEditable(false); 
+      }
+
+      function showSaved(){ 
+        saveStatus.style.display='inline'; 
+        setTimeout(() => { 
+          saveStatus.style.display='none'; 
+        }, 1600); 
+      }
+
+      // Photo change
+      changePhotoBtn.addEventListener('click', () => photoInput.click());
+      photoInput.addEventListener('change', function(){ 
+        const f = this.files && this.files[0]; 
+        if(!f) return; 
+        const reader = new FileReader(); 
+        reader.onload = e => { 
+          profilePhoto.src = e.target.result; 
+          const p = getProfile(); 
+          p.photo = e.target.result; 
+          setProfile(p);
+          // Update sidebar with new photo
+          updateSidebar(p);
+        }; 
+        reader.readAsDataURL(f); 
+      });
+
+      // Password change modal
+      changePasswordBtn.addEventListener('click', () => {
+        passwordModal.style.display = 'flex';
+      });
+
+      // 2FA management modal
+      manage2faBtn.addEventListener('click', () => {
+        twoFactorModal.style.display = 'flex';
+      });
+
+      // Close modals
+      closeModalButtons.forEach(button => {
+        button.addEventListener('click', () => {
+          passwordModal.style.display = 'none';
+          twoFactorModal.style.display = 'none';
+        });
+      });
+
+      cancelPasswordBtn.addEventListener('click', () => {
+        passwordModal.style.display = 'none';
+      });
+
+      close2faBtn.addEventListener('click', () => {
+        twoFactorModal.style.display = 'none';
+      });
+
+      // Save password
+      savePasswordBtn.addEventListener('click', () => {
+        const currentPassword = document.getElementById('currentPassword').value;
+        const newPassword = document.getElementById('newPassword').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        if (!currentPassword || !newPassword || !confirmPassword) {
+          alert('Please fill in all password fields');
+          return;
+        }
+        
+        if (newPassword !== confirmPassword) {
+          alert('New passwords do not match');
+          return;
+        }
+        
+        // In a real app, you would send this to the server
+        alert('Password changed successfully!');
+        passwordModal.style.display = 'none';
+        
+        // Clear the form
+        document.getElementById('currentPassword').value = '';
+        document.getElementById('newPassword').value = '';
+        document.getElementById('confirmPassword').value = '';
+      });
+
+      // Toggle 2FA
+      disable2faBtn.addEventListener('click', () => {
+        const p = getProfile();
+        const currentlyEnabled = p.twoFactorEnabled !== false;
+        
+        if (currentlyEnabled) {
+          p.twoFactorEnabled = false;
+          twoFactorStatusDisplay.textContent = 'Disabled';
+          twoFactorStatusText.textContent = 'Disabled';
+          disable2faBtn.textContent = 'Enable 2FA';
+          disable2faBtn.classList.remove('btn-danger');
+          disable2faBtn.classList.add('btn-success');
+        } else {
+          p.twoFactorEnabled = true;
+          twoFactorStatusDisplay.textContent = 'Enabled';
+          twoFactorStatusText.textContent = 'Enabled';
+          disable2faBtn.textContent = 'Disable 2FA';
+          disable2faBtn.classList.remove('btn-success');
+          disable2faBtn.classList.add('btn-danger');
+        }
+        
+        setProfile(p);
+      });
+
+      editBtn.addEventListener('click', () => { setEditable(true); });
+      saveBtn.addEventListener('click', () => { saveProfile(); });
+      cancelBtn.addEventListener('click', () => { cancelEdit(); });
+
+      // Close modal when clicking outside
+      window.addEventListener('click', (e) => {
+        if (e.target === passwordModal) {
+          passwordModal.style.display = 'none';
+        }
+        if (e.target === twoFactorModal) {
+          twoFactorModal.style.display = 'none';
+        }
+      });
+
+      // initial load
+      loadProfile();
+    })();
   </script>
 </body>
 </html>
