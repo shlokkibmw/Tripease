@@ -339,76 +339,13 @@
     <main id="settings-section">
       <!-- Settings Navigation -->
       <div class="settings-nav">
-        <button class="active" data-target="account">Account</button>
-        <button data-target="notifications">Notifications</button>
+        <button class="active" data-target="notifications">Notifications</button>
         <button data-target="privacy">Privacy & Security</button>
         <button data-target="preferences">Preferences</button>
-        <button data-target="payment">Payment Methods</button>
       </div>
       
       <!-- Settings Content -->
       <div class="settings-content">
-        <!-- Account Settings -->
-        <div id="account" class="active">
-          <section class="card">
-            <h3>Profile Information</h3>
-            
-            <form>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="first-name">First Name</label>
-                  <input type="text" id="first-name" value="Sujay">
-                </div>
-                
-                <div class="form-group">
-                  <label for="last-name">Last Name</label>
-                  <input type="text" id="last-name" value="Shetty">
-                </div>
-              </div>
-              
-              <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" value="Sujayshetty@example.com">
-              </div>
-              
-              <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" value="+1 (555) 123-4567">
-              </div>
-              
-              <div class="form-group">
-                <label for="dob">Date of Birth</label>
-                <input type="date" id="dob" value="1985-06-15">
-              </div>
-              
-              <button type="submit" class="btn"><i class="fas fa-save"></i> Save Changes</button>
-            </form>
-          </section>
-          
-          <section class="card">
-            <h3>Change Password</h3>
-            
-            <form>
-              <div class="form-group">
-                <label for="current-password">Current Password</label>
-                <input type="password" id="current-password">
-              </div>
-              
-              <div class="form-group">
-                <label for="new-password">New Password</label>
-                <input type="password" id="new-password">
-              </div>
-              
-              <div class="form-group">
-                <label for="confirm-password">Confirm New Password</label>
-                <input type="password" id="confirm-password">
-              </div>
-              
-              <button type="submit" class="btn"><i class="fas fa-key"></i> Update Password</button>
-            </form>
-          </section>
-        </div>
-        
         <!-- Notification Settings -->
         <div id="notifications">
           <section class="card">
@@ -559,14 +496,6 @@
                 <option>Indian Rupees (INR)</option>
               </select>
             </div>
-                    
-            <div class="form-group">
-              <label for="temperature">Temperature Unit</label>
-              <select id="temperature">
-                <option>Fahrenheit (°F)</option>
-                <option>Celsius (°C)</option>
-              </select>
-            </div>
             
             <h4>Seating Preferences</h4>
             <div class="form-group">
@@ -577,111 +506,9 @@
                 <option>Extra legroom</option>
               </select>
             </div>
-            
-            <h4>Meal Preferences</h4>
-            <div class="form-group">
-              <select>
-                <option>No preference</option>
-                <option>Vegetarian</option>
-                <option>Vegan</option>
-                <option>Gluten-free</option>
-                <option>Halal</option>
-                <option>Kosher</option>
-              </select>
-            </div>
-            
             <button class="btn"><i class="fas fa-save"></i> Save Preferences</button>
           </section>
         </div>
-        
-        <!-- Payment Methods Settings -->
-        <div id="payment">
-          <section class="card">
-            <h3>Payment Methods</h3>
-            
-            <div class="payment-method">
-              <div class="method-details">
-                <i class="fas fa-credit-card"></i>
-                <div>
-                  <h4>Visa ending in 4567</h4>
-                  <p>Expires 12/2024</p>
-                </div>
-              </div>
-              <div class="method-actions">
-                <button class="btn btn-outline">Edit</button>
-                <button class="btn btn-outline" style="color: var(--danger); border-color: var(--danger);">Remove</button>
-              </div>
-            </div>
-            
-            <div class="payment-method">
-              <div class="method-details">
-                <i class="fab fa-paypal"></i>
-                <div>
-                  <h4>PayPal</h4>
-                  <p>Sujayshetty@example.com</p>
-                </div>
-              </div>
-              <div class="method-actions">
-                <button class="btn btn-outline">Edit</button>
-                <button class="btn btn-outline" style="color: var(--danger); border-color: var(--danger);">Remove</button>
-              </div>
-            </div>
-            
-            <button class="btn" style="margin-top: 20px;"><i class="fas fa-plus"></i> Add Payment Method</button>
-          </section>
-          
-          <section class="card">
-            <h3>Billing Address</h3>
-            
-            <form>
-              <div class="form-group">
-                <label for="address-line1">Address Line 1</label>
-                <input type="text" id="address-line1" value="123 Main Street">
-              </div>
-              
-              <div class="form-group">
-                <label for="address-line2">Address Line 2 (Optional)</label>
-                <input type="text" id="address-line2" value="Apt 4B">
-              </div>
-              
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="city">City</label>
-                  <input type="text" id="city" value="New York">
-                </div>
-                
-                <div class="form-group">
-                  <label for="state">State/Province</label>
-                  <input type="text" id="state" value="NY">
-                </div>
-              </div>
-              
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="zip">ZIP/Postal Code</label>
-                  <input type="text" id="zip" value="10001">
-                </div>
-                
-                <div class="form-group">
-                  <label for="country">Country</label>
-                  <select id="country">
-                    <option>United States</option>
-                    <option>Canada</option>
-                    <option>United Kingdom</option>
-                    <option>Australia</option>
-                    <option>Germany</option>
-                  </select>
-                </div>
-              </div>
-              
-              <button type="submit" class="btn"><i class="fas fa-save"></i> Save Address</button>
-            </form>
-          </section>
-        </div>
-      </div>
-    </main>
-  </div>
-
   <script>
     // Toggle sidebar
     document.getElementById('menu-toggle').addEventListener('click', function() {
