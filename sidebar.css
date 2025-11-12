@@ -1,0 +1,61 @@
+/* Shared sidebar styles extracted from pages */
+:root{--primary:#4a6fa5;--warning:#ffc107}
+.sidebar{width:250px;background:#fff;position:fixed;top:0;left:0;height:100vh;box-shadow:2px 0 10px rgba(0,0,0,0.1);transform:translateX(-100%);transition:transform .3s ease;z-index:99;padding-top:60px}
+.sidebar.show{transform:translateX(0)}
+.sidebar-header{padding:20px;text-align:center;border-bottom:1px solid #eee}
+.sidebar-header img{width:80px;height:80px;border-radius:50%;object-fit:cover;margin-bottom:10px}
+.sidebar-header h3{margin:5px 0}
+.sidebar-header p{margin:0;color:var(--warning);font-size:14px}
+.sidebar ul{list-style:none;padding:0;margin:0}
+.sidebar li a{display:flex;align-items:center;padding:12px 20px;color:#555;text-decoration:none;transition:0.3s}
+.sidebar li a:hover,.sidebar li a.active{background:rgba(74,111,165,0.1);color:var(--primary)}
+.sidebar li a i{margin-right:10px;width:20px;text-align:center}
+
+/* Fixed, consistent hamburger/menu toggle across pages */
+#menu-toggle{
+	position:fixed !important;
+	top:12px !important;
+	left:12px !important;
+	z-index:310 !important;
+	background:#fff !important;
+	border:1px solid rgba(0,0,0,0.08) !important;
+	font-size:20px !important;
+	cursor:pointer !important;
+	width:40px !important;
+	height:40px !important;
+	padding:0 !important;
+	border-radius:8px !important;
+	display:flex !important;
+	align-items:center !important;
+	justify-content:center !important;
+	box-shadow:0 2px 6px rgba(0,0,0,0.06) !important;
+	transition:background .15s ease, transform .08s ease !important;
+}
+
+/* Ensure headers make space for the fixed toggle so text doesn't get overlapped */
+/* Standardize header styling across pages so the white bar (header) height and padding match */
+header{
+	background:#fff !important;
+	padding:14px 20px !important;
+	padding-left:64px !important; /* space for fixed toggle */
+	box-shadow:0 2px 5px rgba(0,0,0,0.1) !important;
+	position:sticky !important;
+	top:0 !important;
+	z-index:200 !important;
+}
+
+/* Slightly smaller header on very small screens */
+@media (max-width:480px){
+	header{ padding:10px 14px !important; padding-left:56px !important; }
+}
+
+@media (max-width:480px){
+	#menu-toggle{left:8px; top:8px;}
+	header{padding-left:56px !important}
+}
+
+	/* Header navigation (right-aligned) and logout button consistency */
+	header .brand{display:flex;align-items:center;gap:14px}
+	header nav{margin-left:auto;display:flex;align-items:center;gap:12px}
+	#logout-btn{background:transparent !important;border:0 !important;color:var(--primary) !important;font-weight:600 !important;text-decoration:none !important;padding:6px 10px;border-radius:6px}
+	#logout-btn:focus{outline:3px solid rgba(74,111,165,0.12);outline-offset:2px}
