@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My Travel History</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="sidebar.css">
   <style>
     :root {
       --primary: #4a6fa5;
@@ -23,27 +24,13 @@
       padding: 0;
       background-color: #f5f5f5;
       color: #333;
+      font-size: 18px;
     }
     
-    header {
-      background-color: white;
-      padding: 15px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+    /* header visuals are centralized in sidebar.css */
+    header { display:flex; align-items:center; justify-content:space-between; }
     
-    #menu-toggle {
-      background: none;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      padding: 5px 10px;
-    }
+    /* menu-toggle handled in sidebar.css (centralized) */
     
     header h1 {
       margin: 0;
@@ -61,7 +48,7 @@
     
     /* Sidebar */
     .sidebar {
-      width: 250px;
+      width: 300px;
       background-color: white;
       position: fixed;
       top: 0;
@@ -130,7 +117,7 @@
     
     /* Main Content */
     .container {
-      padding: 20px;
+      padding: 30px;
       margin-top: 60px;
     }
     
@@ -157,7 +144,7 @@
     }
     
     .stat-card {
-      background-color: white;
+      background-color: rgb(255, 255, 255);
       border-radius: 8px;
       padding: 15px;
       box-shadow: 0 2px 10px rgba(0,0,0,0.1);
@@ -209,7 +196,7 @@
     .filter-options select, .filter-options button {
       padding: 8px 12px;
       border-radius: 5px;
-      border: 1px solid #ddd;
+      border: 1px solid #dddddd25;
       background-color: white;
       font-size: 14px;
     }
@@ -230,7 +217,7 @@
     }
     
     th, td {
-      padding: 12px 15px;
+      padding: 16px 20px;
       text-align: left;
       border-bottom: 1px solid #eee;
     }
@@ -328,73 +315,39 @@
     <button id="menu-toggle" aria-label="Toggle Menu">&#9776;</button>
     <h1>My Travel History</h1>
     <nav>
-      <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+      <a id="logout-btn" href="login.html"><i class="fas fa-sign-out-alt"></i> Logout</a>
     </nav>
   </header>
-
-  <!-- Sidebar -->
-  <div id="sidebar" class="sidebar">
-    <div class="sidebar-header">
-      <img src="C:\Users\Win\Desktop\tripease\harsh.jpg" alt="User Profile" class="profile-img">
-      <h3>Sujay Shetty</h3>
-      <p>Gold Member</p>
-    </div>
-    <ul>
-      <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>
-      <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
-      <li><a href="mytrip.html" class="active"><i class="fas fa-suitcase"></i> My Trips</a></li>
-      <li><a href="Transaction.html"><i class="fas fa-receipt"></i> Transactions</a></li>
-      <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>
-      <li><a href="setting.html"><i class="fas fa-cog"></i> Settings</a></li>
-    </ul>
-  </div>
+        <li><a href="heritage.html"><i class="fas fa-landmark"></i> Heritage Cloud</a></li>
+        <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>
+  <div id="sidebar-placeholder"></div>
+  <script>
+    (async function(){
+  const fallback = `<div id="sidebar" class="sidebar" aria-hidden="true">\n  <div class="sidebar-header">\n    <img src="monasterypic.jfif" alt="User Profile" class="profile-img">\n    <h3>Sujay Shetty</h3>\n    <p>Gold Member</p>\n  </div>\n  <ul>\n    <li><a href="home.html"><i class="fas fa-home"></i> Home</a></li>\n    <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>\n    <li><a href="mytrip.html"><i class="fas fa-suitcase"></i> My Trips</a></li>\n    <li><a href="heritage.html"><i class="fas fa-landmark"></i> Heritage Cloud</a></li>\n    <li><a href="transaction.html"><i class="fas fa-receipt"></i> Transactions</a></li>\n    <li><a href="help.html"><i class="fas fa-question-circle"></i> Help</a></li>\n    <li><a href="setting.html"><i class="fas fa-cog"></i> Settings</a></li>\n  </ul>\n</div>`;
+      try{
+        const res = await fetch('sidebar.html');
+        if(!res.ok) throw new Error('Network response was not ok');
+        const html = await res.text();
+        const ph = document.getElementById('sidebar-placeholder');
+        ph.insertAdjacentHTML('beforebegin', html);
+        ph.remove();
+      }catch(e){
+        const ph = document.getElementById('sidebar-placeholder');
+        ph.insertAdjacentHTML('beforebegin', fallback);
+        ph.remove();
+        console.warn('Loaded fallback sidebar due to fetch error:', e);
+      }
+      // set active link based on filename
+      const current = (location.pathname.split('/').pop() || 'home.html').toLowerCase();
+      document.querySelectorAll('#sidebar ul li a').forEach(a => {
+        try{ if(a.getAttribute('href') && a.getAttribute('href').toLowerCase() === current) a.classList.add('active'); }catch(e){}
+      });
+    })();
+  </script>
 
   <!-- Main Content -->
   <div class="container" id="main-content">
     <main id="trips-section">
-      <!-- Stats Cards -->
-      <div class="stats-cards">
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-suitcase"></i>
-          </div>
-          <div class="stat-info">
-            <h4>Total Trips</h4>
-            <p>24</p>
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-globe-americas"></i>
-          </div>
-          <div class="stat-info">
-            <h4>Countries Visited</h4>
-            <p>12</p>
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-plane"></i>
-          </div>
-          <div class="stat-info">
-            <h4>Upcoming Trips</h4>
-            <p>3</p>
-          </div>
-        </div>
-        
-        <div class="stat-card">
-          <div class="stat-icon">
-            <i class="fas fa-map-marked-alt"></i>
-          </div>
-          <div class="stat-info">
-            <h4>Miles Traveled</h4>
-            <p>42,568</p>
-          </div>
-        </div>
-      </div>
-      
       <!-- Travel History -->
       <section class="card">
         <div class="section-header">
@@ -415,88 +368,82 @@
             <button><i class="fas fa-filter"></i> Apply</button>
           </div>
         </div>
-        
+
+        <!-- Stats Cards as extra information -->
+        <div class="stats-cards">
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-suitcase"></i>
+            </div>
+            <div class="stat-info">
+              <h4>Total Trips</h4>
+              <p>5</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-globe-americas"></i>
+            </div>
+            <div class="stat-info">
+              <h4>Monasteries Visited</h4>
+              <p>4</p>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon">
+              <i class="fas fa-plane"></i>
+            </div>
+            <div class="stat-info">
+              <h4>Upcoming Trips</h4>
+              <p>1</p>
+            </div>
+          </div>
+        </div>
+
         <table>
           <thead>
             <tr>
-              <th>Trip Name</th>
-              <th>Destination</th>
+              <th>Monasteries</th>
               <th>Date</th>
               <th>Duration</th>
               <th>Status</th>
-              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Summer Vacation</td>
-              <td>Bali, Indonesia</td>
+              <td><a href="heritage.html?monastery=Rumtek%20Dharma%20Chakra%20Centre" style="color: var(--primary); text-decoration: none;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--primary)'">Rumtek Dharma Chakra Centre</a></td>
               <td>Jun 15 - Jun 30, 2023</td>
               <td>15 days</td>
               <td><span class="status completed">Completed</span></td>
-              <td>
-                <button class="btn btn-outline"><i class="fas fa-eye"></i> View</button>
-              </td>
             </tr>
             <tr>
-              <td>Business Conference</td>
-              <td>Tokyo, Japan</td>
+              <td><a href="heritage.html?monastery=Phodong%20Monastery" style="color: var(--primary); text-decoration: none;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--primary)'">Phodong Monastery</a></td>
               <td>Apr 5 - Apr 10, 2023</td>
               <td>5 days</td>
               <td><span class="status completed">Completed</span></td>
-              <td>
-                <button class="btn btn-outline"><i class="fas fa-eye"></i> View</button>
-              </td>
             </tr>
             <tr>
-              <td>Winter Getaway</td>
-              <td>Swiss Alps, Switzerland</td>
+              <td><a href="heritage.html?monastery=Pemayangtse%20Monastery" style="color: var(--primary); text-decoration: none;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--primary)'">Pemayangtse Monastery</a></td>
               <td>Dec 20 - Dec 30, 2023</td>
               <td>10 days</td>
               <td><span class="status upcoming">Upcoming</span></td>
-              <td>
-                <button class="btn btn-outline"><i class="fas fa-eye"></i> View</button>
-              </td>
             </tr>
             <tr>
-              <td>Family Reunion</td>
-              <td>Paris, France</td>
+              <td><a href="heritage.html?monastery=Kartok%20Monastery" style="color: var(--primary); text-decoration: none;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--primary)'">Kartok Monastery</a></td>
               <td>Aug 10 - Aug 20, 2022</td>
               <td>10 days</td>
               <td><span class="status completed">Completed</span></td>
-              <td>
-                <button class="btn btn-outline"><i class="fas fa-eye"></i> View</button>
-              </td>
             </tr>
             <tr>
-              <td>Anniversary Trip</td>
-              <td>Rome, Italy</td>
+              <td><a href="heritage.html?monastery=Chawayng%20Ani%20Monastery" style="color: var(--primary); text-decoration: none;" onmouseover="this.style.color='var(--secondary)'" onmouseout="this.style.color='var(--primary)'">Chawayng Ani Monastery</a></td>
               <td>May 15 - May 22, 2022</td>
               <td>7 days</td>
               <td><span class="status completed">Completed</span></td>
-              <td>
-                <button class="btn btn-outline"><i class="fas fa-eye"></i> View</button>
-              </td>
             </tr>
           </tbody>
         </table>
-      </section>
-      
-      <!-- Travel Map -->
-      <section class="card map-container">
-        <div class="section-header">
-          <h3>Travel Map</h3>
-          <div class="filter-options">
-            <select>
-              <option>All Time</option>
-              <option>Last Year</option>
-              <option>Last 5 Years</option>
-            </select>
-          </div>
-        </div>
-        <div class="map-placeholder">
-          <p>Interactive map showing all your travel destinations</p>
-        </div>
       </section>
     </main>
   </div>
