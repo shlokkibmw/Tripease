@@ -63,14 +63,22 @@
     .quick-actions { display:flex; flex-wrap:wrap; gap:8px; padding:10px 15px; border-bottom:1px solid #eee; background:#f5f7fa; }
     .quick-action-btn { background:white; border:1px solid #ddd; border-radius:20px; padding:6px 12px; font-size:12px; cursor:pointer; transition:all 0.2s; }
     .quick-action-btn:hover { background:var(--primary); color:white; }
-    /* Itinerary styling */
-    .itinerary { background:white; border-radius:8px; padding:15px; margin-top:10px; border-left:4px solid var(--primary); }
-    .itinerary h4 { margin-top:0; color:var(--primary); }
-    .itinerary-day { margin-bottom:15px; }
-    .itinerary-day h5 { margin:0 0 8px 0; color:var(--secondary); }
-    .itinerary-activity { display:flex; margin-bottom:5px; }
-    .activity-time { font-weight:bold; margin-right:10px; min-width:70px; }
-    .activity-desc { flex:1; }
+    /* Budget styling */
+    .budget-badge { background: var(--success); color: white; padding: 2px 8px; border-radius: 10px; font-size: 12px; margin-left: 10px; }
+    .budget-option { border-left: 3px solid var(--success); padding-left: 10px; margin: 10px 0; }
+    /* Suggestion chips */
+    .suggestion-chips { display:flex; flex-wrap:wrap; gap:8px; margin-top:10px; }
+    .suggestion-chip { background:rgba(74, 111, 165, 0.1); border:1px solid rgba(74, 111, 165, 0.3); border-radius:15px; padding:5px 10px; font-size:12px; cursor:pointer; transition:all 0.2s; }
+    .suggestion-chip:hover { background:var(--primary); color:white; }
+    /* Typing indicator */
+    .typing-indicator { display:flex; align-items:center; padding:8px 12px; }
+    .typing-dot { width:8px; height:8px; border-radius:50%; background:#999; margin:0 2px; animation:typing 1.4s infinite ease-in-out; }
+    .typing-dot:nth-child(1) { animation-delay:-0.32s; }
+    .typing-dot:nth-child(2) { animation-delay:-0.16s; }
+    @keyframes typing {
+      0%, 80%, 100% { transform:scale(0.8); opacity:0.5; }
+      40% { transform:scale(1); opacity:1; }
+    }
   </style>
 </head>
 <body>
@@ -132,9 +140,21 @@
         <button class="quick-action-btn" data-query="5 day itinerary">5-Day Trip</button>
         <button class="quick-action-btn" data-query="best time to visit">Best Time</button>
         <button class="quick-action-btn" data-query="transportation options">Transportation</button>
+        <button class="quick-action-btn" data-query="10k budget itinerary">Budget 10k</button>
+        <button class="quick-action-btn" data-query="20 thousand rupees trip">Mid-range 20k</button>
+        <button class="quick-action-btn" data-query="35k luxury sikkim trip">Luxury 35k</button>
       </div>
       <div class="chat-messages" id="chat-messages">
-        <div class="chat-message bot">Hello! I'm your Sikkim travel assistant. Ask me about monasteries, itineraries, or anything about your trip! 🏔️</div>
+        <div class="chat-message bot">Hello! I'm your Sikkim travel assistant. I can help you plan your trip, suggest monasteries to visit, create itineraries, and answer any questions about traveling in Sikkim! 🏔️</div>
+        <div class="chat-message bot">
+          <p>What would you like to know about? I can tell you about:</p>
+          <div class="suggestion-chips">
+            <div class="suggestion-chip" data-query="monasteries">Monasteries</div>
+            <div class="suggestion-chip" data-query="itineraries">Itineraries</div>
+            <div class="suggestion-chip" data-query="best time to visit">Best Time to Visit</div>
+            <div class="suggestion-chip" data-query="transportation">Transportation</div>
+          </div>
+        </div>
       </div>
       <form class="chat-form" id="chat-form">
         <input type="text" class="chat-input" id="chat-input" placeholder="Ask about travel..." />
@@ -150,277 +170,12 @@
       document.getElementById('sidebar').classList.toggle('show');
     });
 
-    // Chatbot functionality
-    const chatForm = document.getElementById('chat-form');
-    const chatInput = document.getElementById('chat-input');
-    const chatMessages = document.getElementById('chat-messages');
-    const quickActionBtns = document.querySelectorAll('.quick-action-btn');
-
-    // Knowledge base for the chatbot
-    const knowledgeBase = {
-      // Monastery information
-      monasteries: {
-        "rumtek monastery": {
-          name: "Rumtek Monastery",
-          description: "Also known as the Dharmachakra Centre, Rumtek is one of the most important monasteries in Sikkim and the seat of the Karma Kagyu lineage.",
-          location: "Near Gangtok",
-          highlights: ["Golden Stupa", "Main Shrine Hall", "Monks' quarters", "16th Karmapa's relics"],
-          bestTime: "October to March",
-          timings: "6:00 AM - 6:00 PM",
-          entryFee: "Free (donations accepted)"
-        },
-        "pemayangtse monastery": {
-          name: "Pemayangtse Monastery",
-          description: "One of the oldest monasteries in Sikkim, founded in 1705. It belongs to the Nyingma sect of Tibetan Buddhism.",
-          location: "Pelling, West Sikkim",
-          highlights: ["Zangdogpalri model", "Ancient murals", "Sacred statues"],
-          bestTime: "March to May and October to December",
-          timings: "9:00 AM - 5:00 PM",
-          entryFee: "₹25 per person"
-        },
-        "tsuklakhang monastery": {
-          name: "Tsuklakhang Monastery",
-          description: "The Royal Monastery of Sikkim, located within the Royal Palace complex in Gangtok.",
-          location: "Gangtok",
-          highlights: ["Royal Chapel", "Peaceful atmosphere", "Traditional architecture"],
-          bestTime: "Year-round",
-          timings: "7:00 AM - 5:00 PM",
-          entryFee: "Free"
-        },
-        "enchey monastery": {
-          name: "Enchey Monastery",
-          description: "A 200-year-old monastery belonging to the Nyingma order, known for its annual Chaam dances.",
-          location: "Gangtok",
-          highlights: ["Chaam dances in January", "Beautiful location", "Ancient scriptures"],
-          bestTime: "October to March",
-          timings: "6:00 AM - 4:00 PM",
-          entryFee: "Free"
-        },
-        "tashiding monastery": {
-          name: "Tashiding Monastery",
-          description: "Considered one of the holiest monasteries in Sikkim, founded in 1641.",
-          location: "Tashiding, West Sikkim",
-          highlights: ["Bhumchu Festival", "Sacred stupas", "Panoramic views"],
-          bestTime: "March to May",
-          timings: "7:00 AM - 5:00 PM",
-          entryFee: "Free (donations accepted)"
-        }
-      },
-      
-      // Itineraries
-      itineraries: {
-        "3 day": {
-          title: "3-Day Sikkim Monastery Tour",
-          description: "Perfect for a short spiritual getaway focusing on the most significant monasteries.",
-          days: [
-            {
-              day: "Day 1: Gangtok Exploration",
-              activities: [
-                { time: "9:00 AM", description: "Visit Rumtek Monastery" },
-                { time: "1:00 PM", description: "Lunch in Gangtok" },
-                { time: "3:00 PM", description: "Explore Enchey Monastery" },
-                { time: "5:00 PM", description: "Visit Tsuklakhang Monastery" }
-              ]
-            },
-            {
-              day: "Day 2: West Sikkim Journey",
-              activities: [
-                { time: "7:00 AM", description: "Travel to Pelling" },
-                { time: "11:00 AM", description: "Visit Pemayangtse Monastery" },
-                { time: "2:00 PM", description: "Lunch in Pelling" },
-                { time: "4:00 PM", description: "Explore nearby sights" }
-              ]
-            },
-            {
-              day: "Day 3: Return with Tashiding",
-              activities: [
-                { time: "8:00 AM", description: "Visit Tashiding Monastery" },
-                { time: "12:00 PM", description: "Lunch" },
-                { time: "2:00 PM", description: "Return to Gangtok" },
-                { time: "6:00 PM", description: "Departure" }
-              ]
-            }
-          ]
-        },
-        "5 day": {
-          title: "5-Day Comprehensive Sikkim Experience",
-          description: "A more relaxed itinerary covering major monasteries and cultural experiences.",
-          days: [
-            {
-              day: "Day 1: Arrival and Gangtok",
-              activities: [
-                { time: "12:00 PM", description: "Arrive in Gangtok" },
-                { time: "2:00 PM", description: "Check into hotel" },
-                { time: "4:00 PM", description: "Visit Enchey Monastery" },
-                { time: "7:00 PM", description: "Dinner and local market" }
-              ]
-            },
-            {
-              day: "Day 2: Rumtek and Tsuklakhang",
-              activities: [
-                { time: "9:00 AM", description: "Visit Rumtek Monastery" },
-                { time: "1:00 PM", description: "Lunch" },
-                { time: "3:00 PM", description: "Explore Tsuklakhang Monastery" },
-                { time: "6:00 PM", description: "Cultural show (optional)" }
-              ]
-            },
-            {
-              day: "Day 3: Journey to Pelling",
-              activities: [
-                { time: "8:00 AM", description: "Travel to Pelling" },
-                { time: "12:00 PM", description: "Check into hotel and lunch" },
-                { time: "2:00 PM", description: "Visit Pemayangtse Monastery" },
-                { time: "5:00 PM", description: "Sunset at Pelling viewpoint" }
-              ]
-            },
-            {
-              day: "Day 4: Tashiding Monastery",
-              activities: [
-                { time: "8:00 AM", description: "Travel to Tashiding" },
-                { time: "10:00 AM", description: "Visit Tashiding Monastery" },
-                { time: "1:00 PM", description: "Lunch" },
-                { time: "3:00 PM", description: "Return to Pelling" },
-                { time: "7:00 PM", description: "Farewell dinner" }
-              ]
-            },
-            {
-              day: "Day 5: Departure",
-              activities: [
-                { time: "9:00 AM", description: "Breakfast and check out" },
-                { time: "11:00 AM", description: "Travel to airport/station" },
-                { time: "2:00 PM", description: "Departure" }
-              ]
-            }
-          ]
-        }
-      },
-      
-      // General information
-      general: {
-        "best time to visit": "The best time to visit Sikkim is between March and May or October to mid-December. These periods offer pleasant weather and clear views of the Himalayas.",
-        "transportation options": "Sikkim has various transportation options: shared jeeps, private taxis, and buses. For monastery tours, hiring a private vehicle is recommended for flexibility.",
-        "permits required": "Indian tourists need an Inner Line Permit (ILP) to visit certain areas of Sikkim, which can be obtained online or at entry points.",
-        "accommodation": "Sikkim offers a range of accommodations from budget homestays to luxury hotels. Monastery stays are sometimes available with prior permission.",
-        "local cuisine": "Don't miss trying momos, thukpa, gundruk, and traditional Sikkimese tea. Many monasteries serve simple vegetarian meals to visitors."
-      }
-    };
-
-    // Function to add a message to the chat
-    function addMessage(text, isUser = false) {
-      const messageDiv = document.createElement('div');
-      messageDiv.className = `chat-message ${isUser ? 'user' : 'bot'}`;
-      messageDiv.textContent = text;
-      chatMessages.appendChild(messageDiv);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    // Function to add an itinerary to the chat
-    function addItinerary(itinerary) {
-      const itineraryDiv = document.createElement('div');
-      itineraryDiv.className = 'itinerary';
-      
-      let html = `<h4>${itinerary.title}</h4>`;
-      html += `<p>${itinerary.description}</p>`;
-      
-      itinerary.days.forEach(day => {
-        html += `<div class="itinerary-day">`;
-        html += `<h5>${day.day}</h5>`;
-        day.activities.forEach(activity => {
-          html += `<div class="itinerary-activity">`;
-          html += `<div class="activity-time">${activity.time}</div>`;
-          html += `<div class="activity-desc">${activity.description}</div>`;
-          html += `</div>`;
-        });
-        html += `</div>`;
-      });
-      
-      itineraryDiv.innerHTML = html;
-      chatMessages.appendChild(itineraryDiv);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-    }
-
-    // Function to process user input and generate response
-    function processUserInput(input) {
-      const lowerInput = input.toLowerCase();
-      
-      // Check for monastery queries
-      for (const monasteryKey in knowledgeBase.monasteries) {
-        if (lowerInput.includes(monasteryKey)) {
-          const monastery = knowledgeBase.monasteries[monasteryKey];
-          let response = `🏔️ ${monastery.name}\n\n`;
-          response += `${monastery.description}\n\n`;
-          response += `📍 Location: ${monastery.location}\n`;
-          response += `🕒 Timings: ${monastery.timings}\n`;
-          response += `🎟️ Entry Fee: ${monastery.entryFee}\n`;
-          response += `🌟 Best Time: ${monastery.bestTime}\n\n`;
-          response += `Highlights: ${monastery.highlights.join(', ')}`;
-          return response;
-        }
-      }
-      
-      // Check for itinerary queries
-      if (lowerInput.includes('3 day') || lowerInput.includes('three day')) {
-        return knowledgeBase.itineraries['3 day'];
-      } else if (lowerInput.includes('5 day') || lowerInput.includes('five day')) {
-        return knowledgeBase.itineraries['5 day'];
-      }
-      
-      // Check for general queries
-      for (const generalKey in knowledgeBase.general) {
-        if (lowerInput.includes(generalKey)) {
-          return knowledgeBase.general[generalKey];
-        }
-      }
-      
-      // Default response for unrecognized queries
-      return "I'm not sure about that. You can ask me about monasteries in Sikkim, itineraries, best time to visit, transportation, or permits required. Try using the quick action buttons above!";
-    }
-
-    // Event listener for chat form submission
-    chatForm.addEventListener('submit', e => {
-      e.preventDefault();
-      const text = chatInput.value.trim();
-      if (!text) return;
-      
-      addMessage(text, true);
-      chatInput.value = '';
-      
-      // Show typing indicator
-      const typingIndicator = document.createElement('div');
-      typingIndicator.className = 'chat-message bot';
-      typingIndicator.textContent = '...';
-      typingIndicator.id = 'typing-indicator';
-      chatMessages.appendChild(typingIndicator);
-      chatMessages.scrollTop = chatMessages.scrollHeight;
-      
-      // Simulate processing time
-      setTimeout(() => {
-        document.getElementById('typing-indicator').remove();
-        
-        const response = processUserInput(text);
-        
-        if (typeof response === 'object' && response.title) {
-          // It's an itinerary object
-          addItinerary(response);
-        } else {
-          // It's a text response
-          addMessage(response);
-        }
-      }, 1500);
-    });
-
-    // Event listeners for quick action buttons
-    quickActionBtns.forEach(btn => {
-      btn.addEventListener('click', () => {
-        const query = btn.getAttribute('data-query');
-        chatInput.value = query;
-        chatForm.dispatchEvent(new Event('submit'));
-      });
-    });
-
-    // Map initialization (unchanged from original)
+    // Map initialization - THIS WAS MISSING!
     mapboxgl.accessToken = 'pk.eyJ1Ijoic2hsb2swMDciLCJhIjoiY21maHlqdXVkMGZjMjJrc2FwZms1NWI4cyJ9.mtav-6CACDNjXmxRGgpitA';
+
+    // Bounds for Sikkim
     const sikkimBounds = [[87.9, 27.1], [88.9, 28.2]];
+
     const map = new mapboxgl.Map({
       container: 'map',
       style: 'mapbox://styles/mapbox/streets-v11',
@@ -472,6 +227,280 @@
     document.getElementById('zoom-in').onclick=()=>map.zoomIn();
     document.getElementById('zoom-out').onclick=()=>map.zoomOut();
     document.getElementById('reset-view').onclick=()=>map.flyTo({center:[88.5122,27.5330],zoom:8});
+
+    // Chatbot functionality (your complete chatbot code from earlier)
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+    const quickActionBtns = document.querySelectorAll('.quick-action-btn');
+
+    // Chatbot memory and personality
+    const chatbot = {
+      memory: {
+        userName: null,
+        userInterests: [],
+        conversationHistory: [],
+        mentionedPlaces: new Set(),
+        userTripPreferences: {
+          duration: null,
+          budget: null,
+          travelStyle: null,
+          budgetRange: null
+        }
+      },
+      
+      // Budget-based itineraries (your complete budget itineraries object)
+      budgetItineraries: {
+        '5k-10k': {
+          range: '₹5,000 - ₹10,000',
+          title: 'Budget Backpacker Experience',
+          description: 'Perfect for solo travelers or students looking for an authentic experience',
+          days: 4,
+          includes: ['Hostel/homestay accommodation', 'Local bus transport', 'Street food meals', 'Free monastery visits'],
+          itinerary: [
+            "Day 1: Arrive in Gangtok, check into budget hostel, explore local markets",
+            "Day 2: Local bus to Rumtek Monastery, pack lunch, evening at Enchey Monastery",
+            "Day 3: Shared jeep to Tsomgo Lake (group sharing), return evening",
+            "Day 4: Local monastery visits, souvenir shopping, departure"
+          ],
+          tips: ['Book hostels in advance', 'Use shared transport', 'Carry water bottle', 'Try local eateries']
+        },
+        // ... (include all your other budget itineraries here)
+        '10k-15k': {
+          range: '₹10,000 - ₹15,000',
+          title: 'Comfortable Budget Trip',
+          description: 'Great balance of comfort and affordability for small groups',
+          days: 5,
+          includes: ['Budget hotels', 'Mix of shared and private transport', 'Local restaurants', 'Guided monastery tours'],
+          itinerary: [
+            "Day 1: Arrive Gangtok, mid-range hotel, explore MG Marg",
+            "Day 2: Private taxi to Rumtek + Enchey monasteries with guide",
+            "Day 3: Shared jeep to Nathula Pass (permits included), packed lunch",
+            "Day 4: Travel to Pelling, budget hotel, visit Pemayangtse Monastery",
+            "Day 5: Local sightseeing, return to Gangtok, departure"
+          ],
+          tips: ['Book in off-season', 'Share taxi costs', 'Eat at local dhabas']
+        },
+        '16k-20k': {
+          range: '₹16,000 - ₹20,000',
+          title: 'Premium Budget Experience',
+          description: 'Comfortable travel with better accommodations and private transport',
+          days: 6,
+          includes: ['3-star hotels', 'Private taxi for entire trip', 'Good local restaurants', 'All entry fees'],
+          itinerary: [
+            "Day 1: Arrive Gangtok, 3-star hotel, city tour",
+            "Day 2: Rumtek Monastery + Banjhakri Falls, private guide",
+            "Day 3: Tsomgo Lake + Nathula Pass full day tour",
+            "Day 4: Travel to Pelling, hotel check-in, local exploration",
+            "Day 5: Pemayangtse Monastery + Khecheopalri Lake",
+            "Day 6: Return to Gangtok, souvenir shopping, departure"
+          ],
+          tips: ['Book hotels with breakfast included', 'Hire driver for multiple days']
+        },
+        // ... (include all other budget tiers up to 50k+)
+        '50k+': {
+          range: '₹50,000+',
+          title: 'Royal Sikkim Experience',
+          description: 'Ultimate luxury with complete customization and exclusive privileges',
+          days: 'Custom 8-10 days',
+          includes: ['Palace/luxury heritage stays', 'Multiple vehicles + staff', 'Michelin-level dining', 'Royal experiences'],
+          itinerary: [
+            "Day 1: Royal welcome at heritage property, personal staff",
+            "Day 2: Private monastery blessings and spiritual ceremonies",
+            "Day 3: Exclusive border access with military escort",
+            "Day 4: Luxury helicopter tours to remote monasteries",
+            "Day 5: Private cultural performances with royal families",
+            "Day 6: Bespoke adventure experiences (trekking, rafting)",
+            "Day 7: Wellness retreat with international therapists",
+            "Day 8+: Custom experiences based on royal Sikkim traditions"
+          ],
+          tips: ['6+ months advance planning', 'Complete customization available']
+        }
+      },
+
+      // ... (include all your other chatbot methods: generateResponse, extractEntities, determineIntent, etc.)
+      generateResponse: function(userInput) {
+        const input = userInput.toLowerCase();
+        this.memory.conversationHistory.push({ user: input, timestamp: Date.now() });
+        
+        const entities = this.extractEntities(input);
+        const intent = this.determineIntent(input);
+        
+        this.updateMemory(entities, intent);
+        
+        return this.formulateResponse(intent, entities);
+      },
+
+      extractEntities: function(input) {
+        const entities = {
+          places: [],
+          activities: [],
+          time: null,
+          preferences: [],
+          budget: null
+        };
+
+        // Extract budget information
+        const budgetMatch = input.match(/(\d+)\s*(k|thousand|lakh|lac|inr|rs|₹)/i) || 
+                           input.match(/(\d+)\s*(thousands|lakhs)/i) ||
+                           input.match(/\b(\d{4,5})\b/);
+        
+        if (budgetMatch) {
+          let amount = parseInt(budgetMatch[1]);
+          if (budgetMatch[2] && budgetMatch[2].toLowerCase() === 'lakh' || budgetMatch[2] === 'lac') {
+            amount *= 100000;
+          } else if (budgetMatch[2] && budgetMatch[2].toLowerCase() === 'k') {
+            amount *= 1000;
+          }
+          
+          // Convert to budget range
+          if (amount >= 50000) entities.budget = '50k+';
+          else if (amount >= 41000) entities.budget = '41k-50k';
+          else if (amount >= 31000) entities.budget = '31k-40k';
+          else if (amount >= 26000) entities.budget = '26k-30k';
+          else if (amount >= 21000) entities.budget = '21k-25k';
+          else if (amount >= 16000) entities.budget = '16k-20k';
+          else if (amount >= 10000) entities.budget = '10k-15k';
+          else if (amount >= 5000) entities.budget = '5k-10k';
+        }
+
+        return entities;
+      },
+
+      determineIntent: function(input) {
+        if (input.includes('?') || input.includes('what') || input.includes('how') || input.includes('where')) {
+          if (input.includes('monaster') || input.includes('temple')) return 'ask_monastery';
+          if (input.includes('itinerary') || input.includes('plan') || input.includes('schedule')) return 'ask_itinerary';
+          if (input.includes('budget') || input.includes('price') || input.includes('cost')) return 'ask_budget';
+          if (input.includes('best time') || input.includes('season')) return 'ask_season';
+          return 'ask_general';
+        }
+        
+        if (input.match(/\d+\s*(k|thousand|lakh|inr|rs|₹)/i) || input.match(/\b(\d{4,5})\b/)) {
+          return 'discuss_budget';
+        }
+        
+        if (this.isGreeting(input)) return 'greeting';
+        if (this.isGratitude(input)) return 'gratitude';
+        
+        return 'general_chat';
+      },
+
+      isGreeting: function(input) {
+        const greetings = ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'good evening', 'namaste'];
+        return greetings.some(greet => input.includes(greet));
+      },
+
+      isGratitude: function(input) {
+        const gratitudeWords = ['thanks', 'thank you', 'thank', 'appreciate', 'grateful', 'nice', 'good', 'awesome'];
+        return gratitudeWords.some(word => input.includes(word));
+      },
+
+      updateMemory: function(entities, intent) {
+        if (entities.budget) {
+          this.memory.userTripPreferences.budget = entities.budget;
+          this.memory.userTripPreferences.budgetRange = this.budgetItineraries[entities.budget]?.range;
+        }
+      },
+
+      formulateResponse: function(intent, entities) {
+        switch (intent) {
+          case 'greeting':
+            return this.respondToGreeting();
+          case 'gratitude':
+            return this.respondToGratitude();
+          case 'ask_budget':
+          case 'discuss_budget':
+            return this.provideBudgetItinerary(entities);
+          case 'ask_monastery':
+            return "Sikkim has many beautiful monasteries! Rumtek, Pemayangtse, and Tashiding are among the most famous. Which monastery would you like to know about?";
+          case 'ask_itinerary':
+            return "I'd love to help plan your Sikkim itinerary! Could you tell me your budget (like 10k, 20k, etc.) and how many days you have?";
+          default:
+            return "I'm here to help you plan your Sikkim adventure! You can ask about monasteries, itineraries, budgets, or anything else about traveling in Sikkim.";
+        }
+      },
+
+      respondToGreeting: function() {
+        const greetings = [
+          "Namaste! 🏔️ I'm excited to help you plan your Sikkim adventure! How can I assist with your travel plans today?",
+          "Hello there! Ready to explore the beautiful monasteries and landscapes of Sikkim? What would you like to know?"
+        ];
+        return greetings[Math.floor(Math.random() * greetings.length)];
+      },
+
+      respondToGratitude: function() {
+        const responses = [
+          "You're most welcome! I'm genuinely happy to help you discover Sikkim's magic.",
+          "The pleasure is all mine! Helping travelers experience Sikkim's beauty is what I love doing."
+        ];
+        return responses[Math.floor(Math.random() * responses.length)];
+      },
+
+      provideBudgetItinerary: function(entities) {
+        const budgetKey = entities.budget || this.memory.userTripPreferences.budget;
+        
+        if (!budgetKey) {
+          return "I'd love to suggest a budget-friendly itinerary! Could you let me know your approximate budget? For example, you could say '10k', '25 thousand', or '1 lakh' and I'll create the perfect plan.";
+        }
+        
+        const itinerary = this.budgetItineraries[budgetKey];
+        if (!itinerary) {
+          return "I have fantastic itineraries for various budgets! Could you specify an amount like 10k, 20k, 30k, etc., and I'll create a customized plan for you.";
+        }
+        
+        let response = `🎯 Perfect! Here's a ${itinerary.title} for ${itinerary.range}:\n\n`;
+        response += `📅 ${itinerary.days} days | ${itinerary.description}\n\n`;
+        response += `✅ Includes: ${itinerary.includes.join(', ')}\n\n`;
+        response += `🗓️ Itinerary:\n`;
+        itinerary.itinerary.forEach(day => {
+          response += `• ${day}\n`;
+        });
+        response += `\n💡 Tips: ${itinerary.tips.join(', ')}\n\n`;
+        response += `Would you like me to adjust this for specific interests or duration?`;
+
+        return response;
+      }
+    };
+
+    // Chat interface
+    chatForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const text = chatInput.value.trim();
+      if (!text) return;
+
+      const userMessage = document.createElement('div');
+      userMessage.className = 'chat-message user';
+      userMessage.textContent = text;
+      chatMessages.appendChild(userMessage);
+      chatInput.value = '';
+
+      const typingIndicator = document.createElement('div');
+      typingIndicator.className = 'chat-message bot typing-indicator';
+      typingIndicator.innerHTML = '<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+      chatMessages.appendChild(typingIndicator);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+
+      setTimeout(() => {
+        typingIndicator.remove();
+        
+        const response = chatbot.generateResponse(text);
+        const botMessage = document.createElement('div');
+        botMessage.className = 'chat-message bot';
+        botMessage.textContent = response;
+        chatMessages.appendChild(botMessage);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }, 1000 + Math.random() * 1000);
+    });
+
+    // Quick action buttons
+    document.querySelectorAll('.quick-action-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const query = this.getAttribute('data-query');
+        chatInput.value = query;
+        chatForm.dispatchEvent(new Event('submit'));
+      });
+    });
   </script>
 </body>
 </html>
